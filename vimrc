@@ -124,3 +124,10 @@ nmap <silent> <Leader>s :call __cppSplit_()<cr>
 
 set pastetoggle=<F12>
 
+set undolevels=1000
+if has("persistent_undo")
+    set undodir=~/.vim/undodir
+    set undofile
+    set undoreload=10000
+endif
+
