@@ -131,3 +131,5 @@ if has("persistent_undo")
     set undoreload=10000
 endif
 
+colorscheme solarized
+set background=dark

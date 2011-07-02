@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES=( vim inputrc vimrc bashrc bash_profile )
+FILES=( Xresourses inputrc vim vimrc bashrc bash_profile )
 
 for FILE in ${FILES[@]}; do
     if [ -e ~/.$FILE -o -L ~/.$FILE ]; then
