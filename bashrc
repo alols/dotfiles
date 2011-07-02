@@ -21,3 +21,4 @@ alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-ti
 PS1='[\u@\h \W]\$ '
 
 export HISTCONTROL=ignoredups
+export HISTFILESIZE=10000
