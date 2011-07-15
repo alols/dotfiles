@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
+alias ls='ls --color=auto --group-directories-first'
 alias l.='ls -d .*'
 alias ll='ls -l'
 alias la='ls -la'
@@ -22,3 +22,6 @@ PS1='[\u@\h \W]\$ '
 
 export HISTCONTROL=ignoredups
 export HISTFILESIZE=10000
+
+# for some reason I end up in Documents in KDE
+cd ~

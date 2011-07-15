@@ -134,3 +134,5 @@ endif
 set t_Co=16
 colorscheme solarized
 set background=dark
+
+set grepprg=ack
