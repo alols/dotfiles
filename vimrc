@@ -92,11 +92,6 @@ set smartcase
 "use terminal title
 set title
 
-"nicer scrolling
-set scrolloff=3
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
-
 set nu
 set statusline=%f%r%m%=%Y\ %{&ff}\ %((%l/%L)%)\ %P
 set laststatus=2
@@ -131,8 +126,52 @@ if has("persistent_undo")
     set undoreload=10000
 endif
 
-set t_Co=16
-colorscheme solarized
-set background=dark
+if has("gui") || $COLORTERM=="rxvt-xpm"
+    set t_Co=16
+    set background=dark
+    colorscheme solarized
+else
+    colorscheme default
+endif
 
 set grepprg=ack
+
+fun! __svenska_()
+    set kmp=swedish
+endfun
+
+fun! __myfun()
+    if &nu
+        set rnu
+    elseif &rnu
+        set nornu
+    else
+        set nu
+    endif
+endfun
+
+nmap <silent> <F2> :call __myfun()<cr>
+
+ " If you've opened a file w/o write persmission
+ " this lets you save it
+command! WForce %!sudo tee > /dev/null %
+
+" use ~ like an operator
+set tildeop
+
+command! SoftProse :set spell spelllang=sv,en nolist wrap linebreak tw=0 fo= showbreak=
+command! UnProse :set nospell list wrap nolinebreak tw=74 fo=cqnr1 showbreak=…
+command! HardProse :set spell spelllang=sv,en nolist nowrap nolinebreak tw=74 fo=tqan1 showbreak=…
+
+UnProse
+
+nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>N :bN<CR>
+nnoremap <Leader>p :bp<CR>
+nnoremap <Leader>f :bf<CR>
+nnoremap <Leader>l :bl<CR>
+nnoremap <Leader>m :bm<CR>
+
+set listchars=tab:▸\ ,eol:⏎,trail:\ ,extends:…,precedes:…
+set list
+

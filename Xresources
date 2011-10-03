@@ -1,14 +1,17 @@
-*cutchars: BACKSLASH '"'&()*,;<=>?@[]{|}
-*internalBorder: 0
-*jumpScroll: true
-*loginShell: true
-*pointerBlank: true
-*saveLines: 4000
-*secondaryScroll: true
-*scrollBar: false
-*scrollTtyKeypress: true
-*scrollWithBuffer: true
-*termName: xterm
+URxvt.cutchars: BACKSLASH '"'&()*,;<=>?@[]{|}
+URxvt.internalBorder: 0
+URxvt.jumpScroll: true
+URxvt.loginShell: true
+URxvt.pointerBlank: true
+URxvt.saveLines: 4000
+URxvt.secondaryScroll: true
+URxvt.scrollBar: false
+URxvt.scrollTtyKeypress: true
+URxvt.scrollWithBuffer: true
+URxvt.termName: xterm
+URxvt.font: xft:monospace:size=10
+URxvt.geometry: 80x40
+URxvt.perl-ext-common: default,matcher
 
 !! drop in Solarized colorscheme for Xresources/Xdefaults
 
