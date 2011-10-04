@@ -147,7 +147,7 @@ set tildeop
 
 command! SoftProse :set spell spelllang=sv,en nolist wrap linebreak tw=0 fo= showbreak=
 command! UnProse :set nospell list wrap nolinebreak tw=74 fo=cqnr1 showbreak=…
-command! HardProse :set spell spelllang=sv,en nolist nowrap nolinebreak tw=74 fo=tqan1 showbreak=…
+command! HardProse :set spell spelllang=sv,en nolist nowrap nolinebreak tw=74 fo=tqan1
 
 UnProse
 
@@ -165,7 +165,7 @@ nnoremap <silent> <Left>     :N<CR>
 nnoremap <silent> <Insert>   :bm<CR>
 
  " F4 toggles list
-set listchars=tab:▸\ ,eol:⏎,trail:\ ,extends:…,precedes:…
+set listchars=tab:→\ ,eol:↩,trail:\ ,extends:…,precedes:…
 nnoremap <silent> <F4> :set invlist<CR>
 
  " F3 toggles mouse
@@ -180,6 +180,8 @@ fun! __toggleMouse ()
 endfun
 command! InvMouse call __toggleMouse()
 nnoremap <silent> <F3> :InvMouse<CR>
+
+set mouse=a
 
  " F2 toggles number and relative number
 fun! __toggleNu()
