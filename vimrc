@@ -117,8 +117,6 @@ endfun
 
 nmap <silent> <Leader>s :call __cppSplit_()<cr>
 
-set pastetoggle=<F12>
-
 set undolevels=1000
 if has("persistent_undo")
     set undodir=~/.vim/undodir
@@ -126,7 +124,7 @@ if has("persistent_undo")
     set undoreload=10000
 endif
 
-if has("gui") || $COLORTERM=="rxvt-xpm"
+if has("gui_running") || $COLORTERM=="rxvt-xpm"
     set t_Co=16
     set background=dark
     colorscheme solarized
@@ -139,18 +137,6 @@ set grepprg=ack
 fun! __svenska_()
     set kmp=swedish
 endfun
-
-fun! __myfun()
-    if &nu
-        set rnu
-    elseif &rnu
-        set nornu
-    else
-        set nu
-    endif
-endfun
-
-nmap <silent> <F2> :call __myfun()<cr>
 
  " If you've opened a file w/o write persmission
  " this lets you save it
@@ -165,13 +151,44 @@ command! HardProse :set spell spelllang=sv,en nolist nowrap nolinebreak tw=74 fo
 
 UnProse
 
-nnoremap <Leader>n :bn<CR>
-nnoremap <Leader>N :bN<CR>
-nnoremap <Leader>p :bp<CR>
-nnoremap <Leader>f :bf<CR>
-nnoremap <Leader>l :bl<CR>
-nnoremap <Leader>m :bm<CR>
+nnoremap <silent> <PageDown> :bn<CR>
+nnoremap <silent> <PageUp>   :bN<CR>
+nnoremap <silent> <Home>     :bf<CR>
+nnoremap <silent> <End>      :bl<CR>
 
+nnoremap <silent> <Down>     :cn<CR>
+nnoremap <silent> <Up>       :cp<CR>
+
+nnoremap <silent> <Right>    :n<CR>
+nnoremap <silent> <Left>     :N<CR>
+
+nnoremap <silent> <Insert>   :bm<CR>
+
+ " F4 toggles list
 set listchars=tab:▸\ ,eol:⏎,trail:\ ,extends:…,precedes:…
-set list
+nnoremap <silent> <F4> :set invlist<CR>
 
+ " F3 toggles mouse
+fun! __toggleMouse ()
+    if &mouse=='a'
+        set nonu mouse=
+        echo "Mouse disabled"
+    else
+        set nu mouse=a
+        echo "Mouse enabled"
+    endif
+endfun
+command! InvMouse call __toggleMouse()
+nnoremap <silent> <F3> :InvMouse<CR>
+
+ " F2 toggles number and relative number
+fun! __toggleNu()
+    if &nu
+        set rnu
+    elseif &rnu
+        set nu
+    endif
+endfun
+nmap <silent> <F2> :call __toggleNu()<cr>
+
+set pastetoggle=<F12>

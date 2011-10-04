@@ -12,6 +12,8 @@ URxvt.termName: xterm
 URxvt.font: xft:monospace:size=10
 URxvt.geometry: 80x40
 URxvt.perl-ext-common: default,matcher
+URxvt.fading: 0
+URxvt.visualBell: true
 
 !! drop in Solarized colorscheme for Xresources/Xdefaults
 
