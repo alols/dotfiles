@@ -3,8 +3,8 @@
 set nocompatible
 
 " Init pathogen plugin
-call pathogen#runtime_append_all_bundles() 
-call pathogen#helptags() 
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
 " Make Y move like D and C
 map Y y$
@@ -93,6 +93,10 @@ nnoremap <silent> <Delete>   :cr<CR>
 nnoremap <silent> <Down>     :cn<CR>
 nnoremap <silent> <Up>       :cp<CR>
 
+" Navigate matching tags with Left and Right keys
+nnoremap <silent> <Right>    :tn<CR>
+nnoremap <silent> <Left>     :tp<CR>
+
 " F2 toggles paste
 set pastetoggle=<F2>
 
@@ -111,30 +115,42 @@ fun! __toggleMouse ()
 endfun
 command! InvMouse call __toggleMouse()
 nnoremap <silent> <F3> :InvMouse<CR>
+inoremap <silent> <F3> <Esc>:InvMouse<CR>a
 
  " F4 toggles list
 set list listchars=tab:→\ ,eol:↩,trail:\ ,extends:…,precedes:…
 nnoremap <silent> <F4> :set invlist<CR>
+inoremap <silent> <F4> <Esc>:set invlist<CR>a
 
 " F5 toggles using Swedish special characters when typing
-" on an American keyboard
+" on an American keyboard (Affects insert mode only)
 fun! __svenska()
-    set kmp=swedish
+    if &kmp=="swedish"
+        set kmp=
+    else
+        set kmp=swedish
+    endif
 endfun
+command! Svenska call __svenska()
+nnoremap <silent> <F5> :Svenska<CR>
+inoremap <silent> <F5> <Esc>:Svenska<CR>a
 
 " If you've opened a file w/o write persmission
 " this lets you save it
 command! WriteForce %!sudo tee > /dev/null %
 
 " Use this when editing text where paragraphs should not contain newlines
-command! SoftLine :set spell spelllang=sv,en nolist wrap linebreak tw=0 fo= showbreak=
+command! SoftLine :set spell spelllang=sv,en
+    \ nolist wrap linebreak tw=0 fo= showbreak=
 
 " Use this when editing text where paragraphs should automatically
 " have newlines inserted at the 74th column
-command! HardLine :set spell spelllang=sv,en nolist nowrap nolinebreak tw=74 fo=tqan1
+command! HardLine :set spell spelllang=sv,en
+    \ nolist nowrap nolinebreak tw=74 fo=tqan1
 
 " Use this for editing code
-command! Code :set nospell list wrap nolinebreak tw=74 fo=cqnr1 showbreak=…
+command! Code :set nospell list wrap nolinebreak
+    \ tw=74 fo=cqnr1 showbreak=…
 
 " Code is default mode
 Code
@@ -151,7 +167,7 @@ if has("autocmd")
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
-  au! 
+  au!
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
