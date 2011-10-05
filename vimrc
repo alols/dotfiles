@@ -64,13 +64,13 @@ if has("persistent_undo")
     set undoreload=10000
 endif
 
-runtime macros/matchit.vim "Extended % matching
-set wildmenu "better tab-completion
-set wildmode=list:longest
+" Extended % matching
+" TODO is this available with all distos of Vim?
+runtime macros/matchit.vim
 
-fun! __svenska_()
-    set kmp=swedish
-endfun
+" Tab-completion on the command line
+set wildmenu
+set wildmode=list:longest
 
 "use terminal title
 set title
@@ -115,6 +115,12 @@ nnoremap <silent> <F3> :InvMouse<CR>
  " F4 toggles list
 set list listchars=tab:→\ ,eol:↩,trail:\ ,extends:…,precedes:…
 nnoremap <silent> <F4> :set invlist<CR>
+
+" F5 toggles using Swedish special characters when typing
+" on an American keyboard
+fun! __svenska()
+    set kmp=swedish
+endfun
 
 " If you've opened a file w/o write persmission
 " this lets you save it
