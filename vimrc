@@ -2,39 +2,137 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" Init pathogen
+" Init pathogen plugin
 call pathogen#runtime_append_all_bundles() 
 call pathogen#helptags() 
 
-" allow backspacing over everything in insert mode
+" Make Y move like D and C
+map Y y$
+
+" Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-if has("vms")
-  set nobackup      " do not keep a backup file, use versions instead
-else
-  set backup        " keep a backup file
-endif
-set history=50      " keep 50 lines of command line history
-set ruler       " show the cursor position all the time
-set showcmd     " display incomplete commands
-set incsearch       " do incremental searching
+" Use ~ like an operator
+set tildeop
 
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
+" Keep a backup file
+set backup
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
+" Buffers can be hidden without complaints
+set hidden
+
+set shiftwidth=4    " Set indentation step to four spaces
+set expandtab       " Turn tab key presses into spaces in insert mode
+set softtabstop=4   " Insert four spaces with every tab press
+set tabstop=8       " Let an actual tab character be repesented by
+                    " eight spaces
+
+set history=500      " keep 500 lines of command line history
+set ruler            " show the cursor position all the time
+set showcmd          " display incomplete commands
+set incsearch        " do incremental searching
+
+" Allways show status line
+set statusline=%f%r%m%=%Y\ %{&ff}\ %((%l/%L)%)\ %P
+set laststatus=2
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
+" Switch syntax highlighting on
+syntax on
+" Switch on highlighting the last used search pattern.
+set hlsearch
+
+" Use solarized colorscheme with the GUI and URxvt
+if has("gui_running") || $COLORTERM=="rxvt-xpm"
+    set t_Co=16
+    set background=dark
+    colorscheme solarized
+else
+    colorscheme default
 endif
+
+" Use lots of undo
+set undolevels=1000
+
+" Use an undodir if persistant undo is available
+if has("persistent_undo")
+    set undodir=~/.vim/undodir
+    set undofile
+    set undoreload=10000
+endif
+
+runtime macros/matchit.vim "Extended % matching
+set wildmenu "better tab-completion
+set wildmode=list:longest
+
+fun! __svenska_()
+    set kmp=swedish
+endfun
+
+"use terminal title
+set title
+
+" Browse buffers with PageUp, PageDown
+nnoremap <silent> <PageDown> :bn<CR>
+nnoremap <silent> <PageUp>   :bN<CR>
+
+" Home opens the first buffer, End opens the last
+nnoremap <silent> <Home>     :bf<CR>
+nnoremap <silent> <End>      :bl<CR>
+
+" Insert opens the first modified buffer
+nnoremap <silent> <Insert>   :bm<CR>
+
+" Delete opens the first error in the quickfix list
+nnoremap <silent> <Delete>   :cr<CR>
+
+" Navigate quickfix list with Up and Down keys
+nnoremap <silent> <Down>     :cn<CR>
+nnoremap <silent> <Up>       :cp<CR>
+
+" F2 toggles paste
+set pastetoggle=<F2>
+
+" F3 toggles mouse and numbers off
+" This is useful when Vim cannot access
+" the X clipboard
+set nu mouse=a
+fun! __toggleMouse ()
+    if &mouse=='a'
+        set nonu mouse=
+        echo "Mouse and numbers disabled"
+    else
+        set nu mouse=a
+        echo "Mouse and numbers enabled"
+    endif
+endfun
+command! InvMouse call __toggleMouse()
+nnoremap <silent> <F3> :InvMouse<CR>
+
+ " F4 toggles list
+set list listchars=tab:→\ ,eol:↩,trail:\ ,extends:…,precedes:…
+nnoremap <silent> <F4> :set invlist<CR>
+
+" If you've opened a file w/o write persmission
+" this lets you save it
+command! WriteForce %!sudo tee > /dev/null %
+
+" Use this when editing text where paragraphs should not contain newlines
+command! SoftLine :set spell spelllang=sv,en nolist wrap linebreak tw=0 fo= showbreak=
+
+" Use this when editing text where paragraphs should automatically
+" have newlines inserted at the 74th column
+command! HardLine :set spell spelllang=sv,en nolist nowrap nolinebreak tw=74 fo=tqan1
+
+" Use this for editing code
+command! Code :set nospell list wrap nolinebreak tw=74 fo=cqnr1 showbreak=…
+
+" Code is default mode
+Code
+
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -48,9 +146,6 @@ if has("autocmd")
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
   au! 
-
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -70,127 +165,3 @@ else
 
 endif " has("autocmd")
 
-
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-          \ | wincmd p | diffthis
-endif
-
-set hidden "buffers can be hidden without complaints
-runtime macros/matchit.vim "Extended % matching
-set wildmenu "better tab-completion
-set wildmode=list:longest
-
-"only ignore case when there are no capital letters in pattern
-set ignorecase
-set smartcase
-
-"use terminal title
-set title
-
-set nu
-set statusline=%f%r%m%=%Y\ %{&ff}\ %((%l/%L)%)\ %P
-set laststatus=2
-set tabstop=4
-set shiftwidth=4
-set expandtab
-filetype on
-filetype plugin on
-
-
-map Y y$
-
-fun! __cppSplit_()
-if &filetype == "cpp"
-    if expand("%:e") == "cpp"
-        sp %:r.h
-    elseif expand("%:e") == "h"
-        sp %:r.cpp
-        wincmd J
-    endif
-endif
-endfun
-
-nmap <silent> <Leader>s :call __cppSplit_()<cr>
-
-set undolevels=1000
-if has("persistent_undo")
-    set undodir=~/.vim/undodir
-    set undofile
-    set undoreload=10000
-endif
-
-if has("gui_running") || $COLORTERM=="rxvt-xpm"
-    set t_Co=16
-    set background=dark
-    colorscheme solarized
-else
-    colorscheme default
-endif
-
-set grepprg=ack
-
-fun! __svenska_()
-    set kmp=swedish
-endfun
-
- " If you've opened a file w/o write persmission
- " this lets you save it
-command! WForce %!sudo tee > /dev/null %
-
-" use ~ like an operator
-set tildeop
-
-command! SoftProse :set spell spelllang=sv,en nolist wrap linebreak tw=0 fo= showbreak=
-command! UnProse :set nospell list wrap nolinebreak tw=74 fo=cqnr1 showbreak=…
-command! HardProse :set spell spelllang=sv,en nolist nowrap nolinebreak tw=74 fo=tqan1
-
-UnProse
-
-nnoremap <silent> <PageDown> :bn<CR>
-nnoremap <silent> <PageUp>   :bN<CR>
-nnoremap <silent> <Home>     :bf<CR>
-nnoremap <silent> <End>      :bl<CR>
-
-nnoremap <silent> <Down>     :cn<CR>
-nnoremap <silent> <Up>       :cp<CR>
-
-nnoremap <silent> <Right>    :n<CR>
-nnoremap <silent> <Left>     :N<CR>
-
-nnoremap <silent> <Insert>   :bm<CR>
-
- " F4 toggles list
-set listchars=tab:→\ ,eol:↩,trail:\ ,extends:…,precedes:…
-nnoremap <silent> <F4> :set invlist<CR>
-
- " F3 toggles mouse
-fun! __toggleMouse ()
-    if &mouse=='a'
-        set nonu mouse=
-        echo "Mouse disabled"
-    else
-        set nu mouse=a
-        echo "Mouse enabled"
-    endif
-endfun
-command! InvMouse call __toggleMouse()
-nnoremap <silent> <F3> :InvMouse<CR>
-
-set mouse=a
-
- " F2 toggles number and relative number
-fun! __toggleNu()
-    if &nu
-        set rnu
-    elseif &rnu
-        set nu
-    endif
-endfun
-nmap <silent> <F2> :call __toggleNu()<cr>
-
-set pastetoggle=<F12>
