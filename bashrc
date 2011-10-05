@@ -22,6 +22,3 @@ PS1='[\u@\h \W]\$ '
 
 export HISTCONTROL=ignoredups
 export HISTFILESIZE=10000
-
-# for some reason I end up in Documents in KDE
-cd ~
