@@ -2,6 +2,12 @@
 # ~/.bashrc
 #
 
+# If using Cygwin, these will have to be unset
+if [ $OS == "Windows_NT" ]; then
+    unset TMP
+    unset TEMP
+fi
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
