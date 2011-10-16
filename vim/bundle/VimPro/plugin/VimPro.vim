@@ -4,6 +4,9 @@
 " Detect and resolve scopes
 
 fun! VimProLoad(project)
+    let g:ProjectDir = fnamemodify(a:project, ":p:h")
+    let g:ProjectTags = g:ProjectDir."/tags"
+    exec "set tags=".eval("g:ProjectTags")
 python << endpython
 import vim
 
@@ -58,21 +61,28 @@ values['__INCLUDES__'] = [path + '/*.h' for path in values['INCLUDEPATH']]
 vim.command("let g:VimProPro =" + str(values))
 endpython
 
-    exec "!ctags -f tags --c++-kinds=+pl --fields=+iaS --extra=+q" join(g:VimProPro.SOURCES, ' ') join(g:VimProPro.HEADERS, ' ') join(g:VimProPro.__INCLUDES__, ' ')
-    set tags=tags
+    exec "!ctags -f ".g:ProjectTags." --c++-kinds=+pl --fields=+iaS --extra=+q"
+            \ join(g:VimProPro.SOURCES, ' ')
+            \ join(g:VimProPro.HEADERS, ' ')
+            \ join(g:VimProPro.__INCLUDES__, ' ')
 endfun
 
 fun! VimProGrep(word)
    normal! gew
    try
-       exec "vimgrep /\\<".a:word."\\>/gj" join(g:VimProPro.SOURCES, ' ') join(g:VimProPro.HEADERS, ' ') join(g:VimProPro.OTHER_FILES, ' ')
+       exec "vimgrep /\\<".a:word."\\>/gj"
+               \ join(g:VimProPro.SOURCES, ' ')
+               \ join(g:VimProPro.HEADERS, ' ')
+               \ join(g:VimProPro.OTHER_FILES, ' ')
    catch
        return
    endtry
    let l:nr = 1
    for hit in getqflist()
        let l:nr = l:nr + 1
-       if hit.bufnr == bufnr("%") && hit.lnum == line(".") && col(".") == hit.col
+       if hit.bufnr == bufnr("%")
+               \ && hit.lnum == line(".")
+               \ && col(".") == hit.col
            break
        endif
    endfor
@@ -85,3 +95,21 @@ fun! VimProGrep(word)
 endfun
 nmap <F9> :call VimProGrep(expand("<cword>"))<cr>
 nmap <F10> :cc 1<cr>
+
+fun! VimProTagUpdate(file)
+    if exists("g:ProjectTags")
+        silent exec "keepalt sp ".g:ProjectTags
+        silent lcd %:h
+        let file = fnamemodify(a:file, ":.")
+        silent exec "g/".escape(file,'/')."/d"
+        silent w
+        " TODO ctags command line depends on filetype
+        silent exec "!ctags -f ".g:ProjectTags."--c++-kinds=+pl --fields=+iaS --extra=+q -a ".file
+        silent bd
+    endif
+endfun
+
+augroup Pro
+    au!
+    autocmd BufWritePost * call VimProTagUpdate(expand("<afile>"))
+augroup END
