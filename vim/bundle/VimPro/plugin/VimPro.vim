@@ -1,12 +1,15 @@
 " TODO
-" Auto update tags file (check out AutoTag)
+" Does not work when CD'd out of project dir
 " Add method for adding files to project
 " Detect and resolve scopes
+" Rewrite python part in vimscript
 
 fun! VimProLoad(project)
     let g:ProjectDir = fnamemodify(a:project, ":p:h")
-    let g:ProjectTags = g:ProjectDir."/tags"
-    exec "set tags=".eval("g:ProjectTags")
+    let g:ProjectFile = fnamemodify(a:project, ":p:t")
+    let g:ProjectTags = "tags"
+    exec "set tags=".g:ProjectDir."/".g:ProjectTags
+    exec "cd ".g:ProjectDir
 python << endpython
 import vim
 
@@ -15,7 +18,7 @@ values = { 'SOURCES' : [],
           'INCLUDEPATH' : [],
           'OTHER_FILES' : []}
 lastline = ''
-with open(vim.eval("a:project")) as f:
+with open(vim.eval("g:ProjectFile")) as f:
    for line in f:
        line = ' '.join((lastline, line.rstrip()))
        if line.endswith("\\"):
@@ -67,44 +70,38 @@ endpython
             \ join(g:VimProPro.__INCLUDES__, ' ')
 endfun
 
-fun! VimProGrep(word)
-   normal! gew
-   try
-       exec "vimgrep /\\<".a:word."\\>/gj"
-               \ join(g:VimProPro.SOURCES, ' ')
-               \ join(g:VimProPro.HEADERS, ' ')
-               \ join(g:VimProPro.OTHER_FILES, ' ')
-   catch
-       return
-   endtry
-   let l:nr = 1
-   for hit in getqflist()
-       let l:nr = l:nr + 1
-       if hit.bufnr == bufnr("%")
-               \ && hit.lnum == line(".")
-               \ && col(".") == hit.col
-           break
-       endif
-   endfor
-   if l:nr <= len(getqflist())
-       exec "cc".l:nr
-   else
-       exec "cc 1"
-   endif
-   exec "match Search /\\<".a:word."\\>/"
+fun! ProGrep(grepcommand)
+    let grepcommand = "vimgrep ".a:grepcommand
+    for s in g:VimProPro.VIM_GREP
+        let grepcommand = grepcommand.' '.join(g:VimProPro[s], ' ')
+    endfor
+    echom grepcommand
+    try
+        exec grepcommand
+    catch /E480/
+        echom "Pattern not found in project"
+        return
+    endtry
+    exec "2match Search ".substitute(a:grepcommand, "\\(^/.*/\\).*$", "\\1", "")
 endfun
-nmap <F9> :call VimProGrep(expand("<cword>"))<cr>
+command! -nargs=1 ProGr call ProGrep("<args>")
+
+fun! ProGrepWord(word)
+    normal! gew
+    call ProGrep("/\\<".a:word."\\>/gj")
+endfun
+nmap <F9> :call ProGrepWord(expand("<cword>"))<cr>
 nmap <F10> :cc 1<cr>
 
 fun! VimProTagUpdate(file)
     if exists("g:ProjectTags")
-        silent exec "keepalt sp ".g:ProjectTags
+        silent exec "keepalt sp ".g:ProjectDir.'/'.g:ProjectTags
         silent lcd %:h
         let file = fnamemodify(a:file, ":.")
         silent exec "g/".escape(file,'/')."/d"
         silent w
         " TODO ctags command line depends on filetype
-        silent exec "!ctags -f ".g:ProjectTags."--c++-kinds=+pl --fields=+iaS --extra=+q -a ".file
+        silent exec "!ctags -f ".fnamemodify(g:ProjectTags, ":t")." -a ".file
         silent bd
     endif
 endfun
@@ -112,4 +109,5 @@ endfun
 augroup Pro
     au!
     autocmd BufWritePost * call VimProTagUpdate(expand("<afile>"))
+    autocmd BufRead *.pro call VimProLoad(expand("<afile>"))
 augroup END
