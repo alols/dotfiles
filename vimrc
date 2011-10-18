@@ -45,6 +45,9 @@ syntax on
 " Switch on highlighting the last used search pattern.
 set hlsearch
 
+" CTRL-L redraws screen, let's clear it of search highlights as well
+nnoremap <C-L> :noh<CR><C-L>
+
 " Use solarized colorscheme with the GUI and URxvt
 if has("gui_running") || $COLORTERM=="rxvt-xpm"
     set t_Co=16
@@ -97,6 +100,12 @@ nnoremap <silent> <Up>       :cp<CR>
 nnoremap <silent> <Right>    :tn<CR>
 nnoremap <silent> <Left>     :tp<CR>
 
+" Delete buffer with Backspace
+nnoremap <BS> :bd<CR>
+
+" Write buffer with Enter
+nnoremap <Return> :w<CR>
+
 " F2 toggles paste
 set pastetoggle=<F2>
 
@@ -107,10 +116,10 @@ set nu mouse=a
 fun! __toggleMouse ()
     if &mouse=='a'
         set nonu mouse=
-        echo "Mouse and numbers disabled"
+        echom "Mouse and numbers disabled"
     else
         set nu mouse=a
-        echo "Mouse and numbers enabled"
+        echom "Mouse and numbers enabled"
     endif
 endfun
 command! InvMouse call __toggleMouse()
@@ -119,8 +128,8 @@ inoremap <silent> <F3> <Esc>:InvMouse<CR>a
 
  " F4 toggles list
 set list listchars=tab:→\ ,eol:↩,trail:\ ,extends:…,precedes:…
-nnoremap <silent> <F4> :set invlist<CR>
-inoremap <silent> <F4> <Esc>:set invlist<CR>a
+nnoremap <silent> <F4> :setlocal invlist<CR>
+inoremap <silent> <F4> <Esc>:setlocal invlist<CR>a
 
 " F5 toggles using Swedish special characters when typing
 " on an American keyboard (Affects insert mode only)
@@ -135,25 +144,55 @@ command! Svenska call __svenska()
 nnoremap <silent> <F5> :Svenska<CR>
 inoremap <silent> <F5> <Esc>:Svenska<CR>a
 
+
 " If you've opened a file w/o write persmission
 " this lets you save it
 command! WriteForce %!sudo tee > /dev/null %
 
 " Use this when editing text where paragraphs should not contain newlines
-command! SoftLine :set spell spelllang=sv,en
-    \ nolist wrap linebreak tw=0 fo= showbreak=
+command! SoftLine :setlocal spell spelllang=sv,en
+    \ nolist wrap linebreak tw=0 fo= showbreak= nonu
 
 " Use this when editing text where paragraphs should automatically
 " have newlines inserted at the 74th column
-command! HardLine :set spell spelllang=sv,en
-    \ nolist nowrap nolinebreak tw=74 fo=tqan1
+command! HardLine :setlocal spell spelllang=sv,en
+    \ nolist nowrap nolinebreak tw=74 fo=tqan1 nonu
 
 " Use this for editing code
-command! Code :set nospell list wrap nolinebreak
-    \ tw=74 fo=cqnr1 showbreak=…
+command! Code :setlocal nospell list wrap nolinebreak
+    \ tw=74 fo=cqnr1 showbreak=… nu
 
 " Code is default mode
 Code
+
+
+" Some GPG commands
+" Sign range
+command! -range=% Sig <line1>,<line2>!gpg -ats
+" Encrypt and sign range
+command! -range=% Enc <line1>,<line2>!gpg -atse
+" Decryt/Verify range
+command! -range=% Dec <line1>,<line2>!gpg -atd
+" Strip range of leading ">"
+command! -range=% Str <line1>,<line2>s/^> *//
+
+
+" Useful when editing vimrc
+command! SourceThis :source %
+nmap <Leader>st :SourceThis<cr>
+
+
+" Command for generate and displaying patch file in separate window
+fun! __git_patch()
+    exe "sp ".bufname("%")."_patch"
+    set buftype=nofile bufhidden=hide filetype=diff
+    setlocal noswapfile
+    %d
+    silent exe "read !git diff ".bufname("#")
+    normal gg
+endfun
+command! GitPatch call __git_patch()
+nnoremap <Leader>gp :GitPatch<CR>
 
 
 " Only do this part when compiled with support for autocommands.
@@ -186,4 +225,3 @@ else
   set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
-
