@@ -28,3 +28,4 @@ PS1='[\u@\h \W]\$ '
 
 export HISTCONTROL=ignoredups
 export HISTFILESIZE=10000
+export HISTSIZE=$HISTFILESIZE
