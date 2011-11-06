@@ -107,8 +107,8 @@ fun! ProTagUpdate(fname)
         let fname = fnamemodify(a:fname, ":p")
         let ftype = fnamemodify(a:fname, ":e")
         " TODO ctags command line depends on filetype
-        if ftype == 'c'
-            " exec "silent !vim --cmd 'silent e ".g:ProTags."' --cmd 'silent g/".escape(fname,'/')."/d' --cmd 'silent wq'"
+        if ftype == 'c' || ftype == 'h' || ftype == 'cpp' || ftype == 'py' || ftype == 'vim'
+            " exec "silent !vim --cmd \"silent e ".g:ProTags."\" --cmd \"silent g/".escape(fname,"/")."/d\" --cmd \"silent wq\""
             exec "keepalt silent e ".g:ProTags
             exec "silent g/".escape(fname,'/')."/d"
             keepalt silent w
@@ -168,10 +168,46 @@ fun! ProLoadFun(fname)
         endfor
     endif
 endfun
-command! -nargs=1 ProLoad call ProLoadFun("<args>")
+command! -nargs=1 ProLoad call ProLoadFun(expand("<args>"))
+
+fun! ProUnloadFun()
+    unlet g:ProFile g:ProDir g:ProTags g:ProFiles
+endfun
+
+fun! ProAddFun(fname)
+    if !filereadable(a:fname)
+        echohl Error
+        echom "File does not exist."
+        echohl None
+        return
+    endif
+    if !exists("g:ProFiles")
+        echohl Error
+        echom "No project file loaded."
+        echohl None
+        return
+    endif
+    call ProCheckFile(a:fname)
+endfun
+command! -nargs=1 ProAdd call ProAddFun(expand("<args>"))
+
+fun! ProRemoveFun(fname)
+    if !exists("g:ProFiles")
+        echohl Error
+        echom "No project file loaded."
+        echohl None
+        return
+    endif
+    let fname = fnamemodify(a:fname, ":p")
+    if has_key(g:ProFiles, fname)
+        call remove(g:ProFiles, fname)
+    endif
+endfun
+command! -nargs=1 ProRemove call ProRemoveFun(expand("<args>"))
 
 augroup Pro
     au!
     autocmd BufWritePost * call ProCheckFile(expand("<afile>"))
     "autocmd BufRead *.pro call VimProLoad(expand("<afile>"))
 augroup END
+
