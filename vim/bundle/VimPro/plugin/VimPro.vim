@@ -108,7 +108,11 @@ fun! ProTagUpdate(fname)
         let ftype = fnamemodify(a:fname, ":e")
         " TODO ctags command line depends on filetype
         if ftype == 'c'
-            exec "silent !vim --cmd 'silent e ".g:ProTags."' --cmd 'silent g/".escape(fname,'/')."/d' --cmd 'silent wq'"
+            " exec "silent !vim --cmd 'silent e ".g:ProTags."' --cmd 'silent g/".escape(fname,'/')."/d' --cmd 'silent wq'"
+            exec "keepalt silent e ".g:ProTags
+            exec "silent g/".escape(fname,'/')."/d"
+            keepalt silent w
+            keepalt silent bwipe
             exec "silent !ctags -f ".g:ProTags." -a ".fname
         endif
     endif
