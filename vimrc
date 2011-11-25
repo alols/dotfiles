@@ -12,9 +12,6 @@ map Y y$
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-" Use ~ like an operator
-set tildeop
-
 " Keep a backup file
 set backup
 
@@ -36,19 +33,13 @@ set incsearch        " do incremental searching
 set statusline=%f%r%m%=%Y\ %{&ff}\ %((%l/%L)%)\ %P
 set laststatus=2
 
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
+" Don't use two spaces after a sentence when joining lines.
+set nojoinspaces
 
-" Switch syntax highlighting on
+" Switch syntax highlighting on.
 syntax on
-" Switch on highlighting the last used search pattern.
-set hlsearch
 
-" CTRL-L redraws screen, let's clear it of search highlights as well
-nnoremap <C-L> :noh<CR><C-L>
-
-" Use solarized colorscheme with the GUI and URxvt
+" Use solarized colorscheme with the GUI and URxvt.
 if has("gui_running") || $COLORTERM=="rxvt-xpm"
     set t_Co=16
     set background=dark
@@ -57,54 +48,39 @@ else
     colorscheme default
 endif
 
-" Use lots of undo
+" Use lots of undo.
 set undolevels=1000
 
-" Use an undodir if persistant undo is available
+" Use an undodir if persistant undo is available.
 if has("persistent_undo")
     set undodir=~/.vim/undodir
     set undofile
     set undoreload=10000
 endif
 
-" Extended % matching
-" TODO is this available with all distos of Vim?
-runtime macros/matchit.vim
-
-" Tab-completion on the command line
+" Tab-completion on the command line.
 set wildmenu
 set wildmode=list:longest
 
-"use terminal title
+"use terminal title.
 set title
+set titleold="[terminal]"
 
-" Browse buffers with PageUp, PageDown
-nnoremap <silent> <PageDown> :bn<CR>
-nnoremap <silent> <PageUp>   :bN<CR>
+" Navigate quickfix list with PageUp and PageDown keys
+nnoremap <silent> <PageDown> :cn<CR>
+nnoremap <silent> <PageUp>   :cN<CR>
 
-" Home opens the first buffer, End opens the last
-nnoremap <silent> <Home>     :bf<CR>
-nnoremap <silent> <End>      :bl<CR>
+" Home opens the first error, End opens the last
+nnoremap <silent> <Home>     :cr<CR>
+nnoremap <silent> <End>      :cla<CR>
 
-" Insert opens the first modified buffer
-nnoremap <silent> <Insert>   :bm<CR>
-
-" Delete opens the first error in the quickfix list
-nnoremap <silent> <Delete>   :cr<CR>
-
-" Navigate quickfix list with Up and Down keys
-nnoremap <silent> <Down>     :cn<CR>
-nnoremap <silent> <Up>       :cp<CR>
-
-" Navigate matching tags with Left and Right keys
+" Left and right switches matching tags.
+" Up and Down moves you up and down the tag-stack.
 nnoremap <silent> <Right>    :tn<CR>
-nnoremap <silent> <Left>     :tp<CR>
+nnoremap <silent> <Left>     :tN<CR>
+nnoremap <silent> <Down>     :po<CR>
+nnoremap <silent> <Up>       :ta<CR>
 
-" Delete buffer with Backspace
-nnoremap <BS> :bd<CR>
-
-" Write buffer with Enter
-nnoremap <Return> :w<CR>
 
 " F2 toggles paste
 set pastetoggle=<F2>
@@ -149,17 +125,27 @@ inoremap <silent> <F5> <Esc>:Svenska<CR>a
 " this lets you save it
 command! WriteForce %!sudo tee > /dev/null %
 
+
+" When writing prose, it is useful to put undo breaks after each sentence
+" work in progess!!
+command! -bar Prose inoremap <buffer> . .<C-G>u|
+            \ inoremap <buffer> ! !<C-G>u|
+            \ inoremap <buffer> ? ?<C-G>u
+command! -bar NoProse silent iunmap <buffer> .|
+            \ silent iunmap <buffer> !|
+            \ silent iunmap <buffer> ?
+
 " Use this when editing text where paragraphs should not contain newlines
-command! SoftLine :setlocal spell spelllang=sv,en
+command! SoftLine Prose| setlocal spell spelllang=sv,en
     \ nolist wrap linebreak tw=0 fo= showbreak= nonu
 
 " Use this when editing text where paragraphs should automatically
 " have newlines inserted at the 74th column
-command! HardLine :setlocal spell spelllang=sv,en
+command! HardLine Prose| setlocal spell spelllang=sv,en
     \ nolist nowrap nolinebreak tw=74 fo=tqan1 nonu
 
 " Use this for editing code
-command! Code :setlocal nospell list wrap nolinebreak
+command! Code NoProse| setlocal nospell list wrap nolinebreak
     \ tw=74 fo=cqnr1 showbreak=… nu
 
 " Code is default mode
@@ -177,31 +163,10 @@ command! -range=% Dec <line1>,<line2>!gpg -atd
 command! -range=% Str <line1>,<line2>s/^> *//
 
 
-" Useful when editing vimrc
-command! SourceThis :source %
-nmap <Leader>st :SourceThis<cr>
-
-
-" Command for generate and displaying patch file in separate window
-fun! __git_patch()
-    exe "sp ".bufname("%")."_patch"
-    set buftype=nofile bufhidden=hide filetype=diff
-    setlocal noswapfile
-    %d
-    silent exe "read !git diff ".bufname("#")
-    normal gg
-endfun
-command! GitPatch call __git_patch()
-nnoremap <Leader>gp :GitPatch<CR>
-
-
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
   " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
   filetype plugin indent on
 
   " Put these in an autocmd group, so that we can delete them easily.
@@ -209,10 +174,6 @@ if has("autocmd")
   au!
 
   " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  " Also don't do it when the mark is in the first line, that is the default
-  " position when opening a file.
   autocmd BufReadPost *
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
