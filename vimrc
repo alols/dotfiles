@@ -123,17 +123,16 @@ inoremap <silent> <F5> <Esc>:Svenska<CR>a
 
 " If you've opened a file w/o write persmission
 " this lets you save it
-command! WriteForce %!sudo tee > /dev/null %
+command! ForceWrite %!sudo tee > /dev/null %
 
 
 " When writing prose, it is useful to put undo breaks after each sentence
-" work in progess!!
 command! -bar Prose inoremap <buffer> . .<C-G>u|
             \ inoremap <buffer> ! !<C-G>u|
             \ inoremap <buffer> ? ?<C-G>u
-command! -bar NoProse silent iunmap <buffer> .|
-            \ silent iunmap <buffer> !|
-            \ silent iunmap <buffer> ?
+command! -bar NoProse silent! iunmap <buffer> .|
+            \ silent! iunmap <buffer> !|
+            \ silent! iunmap <buffer> ?
 
 " Use this when editing text where paragraphs should not contain newlines
 command! SoftLine Prose| setlocal spell spelllang=sv,en
