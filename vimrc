@@ -24,10 +24,14 @@ set softtabstop=4   " Insert four spaces with every tab press
 set tabstop=8       " Let an actual tab character be repesented by
                     " eight spaces
 
-set history=500      " keep 500 lines of command line history
-set ruler            " show the cursor position all the time
-set showcmd          " display incomplete commands
-set incsearch        " do incremental searching
+set history=500     " Keep 500 lines of command line history.
+set ruler           " Show the cursor position all the time.
+set showcmd         " Display incomplete commands.
+
+" Being oldfashioned here.
+set noincsearch     " Don't do incremental searching.
+set nohlsearch      " Don't highlight search results.
+set nowrapscan      " Don't wrap around file when searching.
 
 " Allways show status line
 set statusline=%f%r%m%=%Y\ %{&ff}\ %((%l/%L)%)\ %P
@@ -35,6 +39,11 @@ set laststatus=2
 
 " Don't use two spaces after a sentence when joining lines.
 set nojoinspaces
+
+" GUI options
+" Must appear before syntax on.
+" Autoselect, use icon, don't source menu.vim, left scrollbar.
+set guioptions=aiML
 
 " Switch syntax highlighting on.
 syntax on
@@ -64,7 +73,7 @@ set wildmode=list:longest
 
 "use terminal title.
 set title
-set titleold="[terminal]"
+set titleold=[terminal]
 
 " Navigate quickfix list with PageUp and PageDown keys
 nnoremap <silent> <PageDown> :cn<CR>
@@ -123,7 +132,7 @@ inoremap <silent> <F5> <Esc>:Svenska<CR>a
 
 " If you've opened a file w/o write persmission
 " this lets you save it
-command! ForceWrite %!sudo tee > /dev/null %
+command! ForceWrite %!sudo cat > %
 
 
 " When writing prose, it is useful to put undo breaks after each sentence
@@ -165,20 +174,24 @@ command! -range=% Str <line1>,<line2>s/^> *//
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
-  " Enable file type detection.
-  filetype plugin indent on
+    " Enable file type detection.
+    filetype plugin indent on
 
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
+    augroup vimrcEx
+        au!
+        " When editing a file, always jump to the last known cursor position.
+        autocmd BufReadPost *
+          \ if line("'\"") > 1 && line("'\"") <= line("$") |
+          \   exe "normal! g`\"" |
+          \ endif
 
-  " When editing a file, always jump to the last known cursor position.
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+        " Lets be faithful to out line editor heritage
+        autocmd WinEnter * set cursorline
+        autocmd WinLeave * set nocursorline
 
-  augroup END
+    augroup END
+
+    set cursorline
 
 else
 
