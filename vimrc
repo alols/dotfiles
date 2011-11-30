@@ -98,7 +98,7 @@ set pastetoggle=<F2>
 " This is useful when Vim cannot access
 " the X clipboard
 set nu mouse=a
-fun! __toggleMouse ()
+fun! s:toggleMouse ()
     if &mouse=='a'
         set nonu mouse=
         echom "Mouse and numbers disabled"
@@ -107,7 +107,7 @@ fun! __toggleMouse ()
         echom "Mouse and numbers enabled"
     endif
 endfun
-command! InvMouse call __toggleMouse()
+command! InvMouse call s:toggleMouse()
 nnoremap <silent> <F3> :InvMouse<CR>
 inoremap <silent> <F3> <Esc>:InvMouse<CR>a
 
@@ -118,17 +118,27 @@ inoremap <silent> <F4> <Esc>:setlocal invlist<CR>a
 
 " F5 toggles using Swedish special characters when typing
 " on an American keyboard (Affects insert mode only)
-fun! __svenska()
+fun! s:svenska()
     if &kmp=="swedish"
         set kmp=
     else
         set kmp=swedish
     endif
 endfun
-command! Svenska call __svenska()
+command! Svenska call s:svenska()
 nnoremap <silent> <F5> :Svenska<CR>
 inoremap <silent> <F5> <Esc>:Svenska<CR>a
 
+" F6 toggles light/dark colors
+fun! s:toggleColors()
+    if &background=='light'
+        set background=dark
+    else
+        set background=light
+    endif
+endfun
+command! InvColors call s:toggleColors()
+nnoremap <F6> :InvColors<CR>
 
 " If you've opened a file w/o write persmission
 " this lets you save it
