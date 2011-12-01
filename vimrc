@@ -91,6 +91,20 @@ nnoremap <silent> <Down>     :po<CR>
 nnoremap <silent> <Up>       :ta<CR>
 
 
+" F1 toggles automatic word wrap
+fun! s:toggleAutoWrap ()
+    if stridx(&fo, 'a')==-1
+        set fo+=a 
+        echom "Autowrap enabled"
+    else
+        set fo-=a
+        echom "Autowrap disabled"
+    endif
+endfun
+command! InvAutoWrap call s:toggleAutoWrap()
+nnoremap <silent> <F1> :InvAutoWrap<CR>
+inoremap <silent> <F1> <Esc>:InvAutoWrap<CR>a
+
 " F2 toggles paste
 set pastetoggle=<F2>
 
@@ -146,28 +160,29 @@ command! ForceWrite %!sudo cat > %
 
 
 " When writing prose, it is useful to put undo breaks after each sentence
-command! -bar Prose inoremap <buffer> . .<C-G>u|
+command! Prose inoremap <buffer> . .<C-G>u|
             \ inoremap <buffer> ! !<C-G>u|
-            \ inoremap <buffer> ? ?<C-G>u
-command! -bar NoProse silent! iunmap <buffer> .|
+            \ inoremap <buffer> ? ?<C-G>u|
+            \ setlocal spell spelllang=sv,en
+            \     nolist nowrap tw=74 fo=ta1 nonu
+
+command! Code silent! iunmap <buffer> .|
             \ silent! iunmap <buffer> !|
-            \ silent! iunmap <buffer> ?
-
-" Use this when editing text where paragraphs should not contain newlines
-command! SoftLine Prose| setlocal spell spelllang=sv,en
-    \ nolist wrap linebreak tw=0 fo= showbreak= nonu
-
-" Use this when editing text where paragraphs should automatically
-" have newlines inserted at the 74th column
-command! HardLine Prose| setlocal spell spelllang=sv,en
-    \ nolist nowrap nolinebreak tw=74 fo=tqan1 nonu
-
-" Use this for editing code
-command! Code NoProse| setlocal nospell list wrap nolinebreak
-    \ tw=74 fo=cqnr1 showbreak=… nu
+            \ silent! iunmap <buffer> ?|
+            \ setlocal nospell list nowrap
+            \     tw=74 fo=cqr1 showbreak=… nu
 
 " Code is default mode
 Code
+
+
+" Turn hard wrapped text into soft wrapped.
+" This command will join all lines within a range that are not separated
+" by empty lines. Automatic word wrap must be off (set fo-=a).
+" Useful if you need to copy and paste into a word processor.
+command! -range=% SoftWrap
+            \ <line2>put _ |
+            \ <line1>,<line2>g/.\+/ .;-/^$\|\%$/ join |normal $x
 
 
 " Some GPG commands
