@@ -182,7 +182,7 @@ Code
 " Useful if you need to copy and paste into a word processor.
 command! -range=% SoftWrap
             \ <line2>put _ |
-            \ <line1>,<line2>g/.\+/ .;-/^$\|\%$/ join |normal $x
+            \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
 
 
 " Some GPG commands
