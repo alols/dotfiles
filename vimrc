@@ -33,10 +33,6 @@ set noincsearch     " Don't do incremental searching.
 set nohlsearch      " Don't highlight search results.
 set nowrapscan      " Don't wrap around file when searching.
 
-" Allways show status line
-set statusline=%f%r%m%=%Y\ %{&ff}\ %((%l/%L)%)\ %P
-set laststatus=2
-
 " Don't use two spaces after a sentence when joining lines.
 set nojoinspaces
 
@@ -90,6 +86,13 @@ nnoremap <silent> <Left>     :tN<CR>
 nnoremap <silent> <Down>     :po<CR>
 nnoremap <silent> <Up>       :ta<CR>
 
+" I prefer vertical splitting over horizontal
+set splitright
+set winwidth=80
+cabbrev help vert help
+cabbrev sp vsp
+cabbrev hsp sp
+set diffopt+=vertical
 
 " F1 toggles automatic word wrap
 fun! s:toggleAutoWrap ()
@@ -153,6 +156,22 @@ fun! s:toggleColors()
 endfun
 command! InvColors call s:toggleColors()
 nnoremap <F6> :InvColors<CR>
+
+
+" Statusline
+set laststatus=2                               " Allways show
+set statusline=%3n\                            " Buffer number
+set statusline+=%{&ma?&ro?'=':'':'-'}          " Nomodifiable: -, Readonly: =
+set statusline+=%{&mod?'+':'\ '}\              " Modified: +
+set statusline+=\"%f\"\ %L\ lines%<%=          " Filename, nr lines
+set statusline+=ts=%{&ts}\                     " Indention settings
+set statusline+=%{&sts?'sts='.&sts.'\ ':''}    " Indention settings
+set statusline+=sw=%{&sw}\ %{&et?'et':''}\ \|\ " Indention settings
+set statusline+=%{strlen(&ft)?&ft.'\ \|\ ':''} " Filetype
+set statusline+=%{strlen(&fenc)?&fenc.'\ ':''} " Encoding
+set statusline+=%{&ff=='unix'?'^n':&ff=='dos'?'^r^n':'^r'} "Lineendings
+set statusline+=\ \|\ %4l,\ %2c\               " Row, Col
+
 
 " If you've opened a file w/o write persmission
 " this lets you save it
