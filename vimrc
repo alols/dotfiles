@@ -166,7 +166,7 @@ set statusline+=%{&mod?'+':'\ '}\              " Modified: +
 set statusline+=\"%f\"\ %L\ lines%<%=          " Filename, nr lines
 set statusline+=ts=%{&ts}\                     " Indention settings
 set statusline+=%{&sts?'sts='.&sts.'\ ':''}    " Indention settings
-set statusline+=sw=%{&sw}\ %{&et?'et':''}\ \|\ " Indention settings
+set statusline+=sw=%{&sw}\ %{&et?'et\ ':''}\|\ " Indention settings
 set statusline+=%{strlen(&ft)?&ft.'\ \|\ ':''} " Filetype
 set statusline+=%{strlen(&fenc)?&fenc.'\ ':''} " Encoding
 set statusline+=%{&ff=='unix'?'^n':&ff=='dos'?'^r^n':'^r'} "Lineendings
