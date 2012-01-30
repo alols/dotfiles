@@ -45,7 +45,7 @@ set guioptions=aiML
 syntax on
 
 " Use solarized colorscheme with the GUI and URxvt.
-if has("gui_running") || $COLORTERM=="rxvt-xpm"
+if has("gui_running") || $COLORTERM=="rxvt-xpm" || $COLORTERM=="gnome-terminal"
     set t_Co=16
     set background=dark
     colorscheme solarized
@@ -93,6 +93,17 @@ cabbrev help vert help
 cabbrev sp vsp
 cabbrev hsp sp
 set diffopt+=vertical
+
+" R toggles relative number
+fun! s:toggleRelativeNumber()
+    if &nu
+        set rnu
+    else
+        set nu
+    endif
+endfun
+command! ToggleRelativeNumber call s:toggleRelativeNumber()
+noremap R :ToggleRelativeNumber<CR>
 
 " F1 toggles automatic word wrap
 fun! s:toggleAutoWrap ()
