@@ -7,7 +7,10 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
 " Make Y move like D and C
-map Y y$
+noremap Y y$
+
+" Use Q to playback macros stored in q
+noremap Q @q
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -87,12 +90,31 @@ nnoremap <silent> <Down>     :po<CR>
 nnoremap <silent> <Up>       :ta<CR>
 
 " I prefer vertical splitting over horizontal
-set splitright
-set winwidth=80
-cabbrev help vert help
-cabbrev sp vsp
-cabbrev hsp sp
-set diffopt+=vertical
+let s:verticalMode=0
+fun! s:toggleVerticalMode()
+    if !s:verticalMode
+        set splitright
+        set winwidth=80
+        cabbrev help vert help
+        cabbrev sp vsp
+        cabbrev hsp sp
+        set diffopt+=vertical
+        let s:verticalMode=1
+    else
+        set nosplitright
+        set winwidth=20
+        unabbrev help
+        unabbrev sp
+        unabbrev hsp
+        set diffopt-=vertical
+        let s:verticalMode=0
+    endif
+endfun
+command! ToggleVerticalMode call s:toggleVerticalMode()
+
+if &columns > 130
+    ToggleVerticalMode
+endif
 
 " R toggles relative number
 fun! s:toggleRelativeNumber()
