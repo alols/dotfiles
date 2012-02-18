@@ -228,6 +228,9 @@ command! Code silent! iunmap <buffer> .|
 Code
 
 
+" I use this to correct my spelling mistakes
+nnoremap \s ea<C-X><C-S>
+
 " Turn hard wrapped text into soft wrapped.
 " This command will join all lines within a range that are not separated
 " by empty lines. Automatic word wrap must be off (set fo-=a).
