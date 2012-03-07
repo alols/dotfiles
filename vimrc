@@ -139,7 +139,7 @@ fun! s:toggleAutoWrap ()
 endfun
 command! InvAutoWrap call s:toggleAutoWrap()
 nnoremap <silent> <F1> :InvAutoWrap<CR>
-inoremap <silent> <F1> <Esc>:InvAutoWrap<CR>a
+inoremap <silent> <F1> <C-o>:InvAutoWrap<CR>
 
 " F2 toggles paste
 set pastetoggle=<F2>
@@ -159,12 +159,12 @@ fun! s:toggleMouse ()
 endfun
 command! InvMouse call s:toggleMouse()
 nnoremap <silent> <F3> :InvMouse<CR>
-inoremap <silent> <F3> <Esc>:InvMouse<CR>a
+inoremap <silent> <F3> <C-o>:InvMouse<CR>
 
  " F4 toggles list
 set list listchars=tab:→\ ,eol:↩,trail:\ ,extends:…,precedes:…
 nnoremap <silent> <F4> :setlocal invlist<CR>
-inoremap <silent> <F4> <Esc>:setlocal invlist<CR>a
+inoremap <silent> <F4> <C-o>:setlocal invlist<CR>
 
 " F5 toggles using Swedish special characters when typing
 " on an American keyboard (Affects insert mode only)
@@ -177,7 +177,7 @@ fun! s:svenska()
 endfun
 command! Svenska call s:svenska()
 nnoremap <silent> <F5> :Svenska<CR>
-inoremap <silent> <F5> <Esc>:Svenska<CR>a
+inoremap <silent> <F5> <C-o>:Svenska<CR>
 
 " F6 toggles light/dark colors
 fun! s:toggleColors()
@@ -216,7 +216,7 @@ command! Prose inoremap <buffer> . .<C-G>u|
             \ inoremap <buffer> ! !<C-G>u|
             \ inoremap <buffer> ? ?<C-G>u|
             \ setlocal spell spelllang=sv,en
-            \     nolist nowrap tw=74 fo=ta1 nonu
+            \     nolist nowrap tw=74 fo=t1 nonu
 
 command! Code silent! iunmap <buffer> .|
             \ silent! iunmap <buffer> !|
