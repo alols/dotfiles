@@ -74,6 +74,11 @@ set wildmode=list:longest
 set title
 set titleold=[terminal]
 
+" Map space to :
+noremap <Space> :
+" Unmap : till I learn that
+noremap : <Nop>
+
 " Navigate quickfix list with PageUp and PageDown keys
 nnoremap <silent> <PageDown> :cn<CR>
 nnoremap <silent> <PageUp>   :cN<CR>
