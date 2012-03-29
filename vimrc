@@ -15,9 +15,6 @@ noremap Q @q
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-" Keep a backup file
-set backup
-
 " Buffers can be hidden without complaints
 set hidden
 
@@ -64,6 +61,9 @@ if has("persistent_undo")
     set undodir=~/.vim/undodir
     set undofile
     set undoreload=10000
+else
+    " Keep a backup file
+    set backup
 endif
 
 " Tab-completion on the command line.
