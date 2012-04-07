@@ -1,0 +1,3 @@
+[submodule "zdir"]
+	path = zdir
+	url = https://github.com/rupa/z.git
