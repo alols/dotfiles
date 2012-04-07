@@ -33,3 +33,6 @@ export HISTSIZE=$HISTFILESIZE
 
 export EDITOR=vim
 export VISUAL=vim
+
+# Load z
+. ~/.zdir/z.sh
