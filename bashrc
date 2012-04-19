@@ -36,3 +36,8 @@ export VISUAL=vim
 
 # Load z
 . ~/.zdir/z.sh
+
+# tmux borks vim without this, even though I only use 16 colors
+if [ $TERM == "xterm" ]; then
+    export TERM=xterm-256color
+fi
