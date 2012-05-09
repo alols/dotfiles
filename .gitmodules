@@ -7,3 +7,6 @@
 [submodule "vim/bundle/Fugitive"]
 	path = vim/bundle/Fugitive
 	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/bundle/ClangComplete"]
+	path = vim/bundle/ClangComplete
+	url = https://github.com/Rip-Rip/clang_complete.git
