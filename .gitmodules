@@ -10,3 +10,6 @@
 [submodule "vim/bundle/VimRoom"]
 	path = vim/bundle/VimRoom
 	url = https://github.com/mikewest/vimroom.git
+[submodule "vim/bundle/ClangComplete"]
+	path = vim/bundle/ClangComplete
+	url = https://github.com/Rip-Rip/clang_complete.git
