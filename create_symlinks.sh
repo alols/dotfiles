@@ -1,6 +1,8 @@
 #!/bin/bash
 
-FILES=( Xresources inputrc vim vimrc bashrc bash_profile Xmodmap zdir muttrc mutt signature )
+FILES=( Xresources inputrc vim vimrc bashrc bash_profile Xmodmap zdir muttrc mutt signature)
+
+gconftool-2 --load gnome-terminal-gconf.xml
 
 for FILE in ${FILES[@]}; do
     if [ -e ~/.$FILE -o -L ~/.$FILE ]; then
