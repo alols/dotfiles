@@ -24,6 +24,7 @@ alias fgrep='fgrep --color=auto'
 alias vi='vim'
 alias q=exit
 alias t=task
+alias ack='ack-grep'
 
 PS1='[\u@\h \W]\$ '
 
