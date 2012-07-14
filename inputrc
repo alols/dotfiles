@@ -61,4 +61,4 @@ control-a: universal-argument
 control-p: "\C-a--\C-n"
 
 #fix for xcape
-control-k: "\e--k"
+control-k: "\e"
