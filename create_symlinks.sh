@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILES=( Xresources inputrc vim vimrc bashrc bash_profile Xmodmap zdir muttrc mutt signature tmux.conf )
+FILES=( Xresources inputrc vim vimrc bashrc bash_profile Xmodmap zdir muttrc mutt signature tmux.conf haskeline)
 
 gconftool-2 --load gnome-terminal-gconf.xml
 
