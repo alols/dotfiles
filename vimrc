@@ -74,6 +74,9 @@ set wildmode=list:longest
 set title
 set titleold=[terminal]
 
+"Fix for xcape
+inoremap <C-k> <Esc>k
+
 " Navigate quickfix list with PageUp and PageDown keys
 nnoremap <silent> <PageDown> :cn<CR>
 nnoremap <silent> <PageUp>   :cN<CR>
