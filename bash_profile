@@ -14,6 +14,3 @@ fi
 if [ -d "${HOME}/bin" ] ; then
     PATH=${HOME}/bin:${PATH}
 fi
-
-#Allways start login shells at home
-cd ~
