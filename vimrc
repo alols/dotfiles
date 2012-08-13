@@ -112,7 +112,7 @@ fun! s:toggleVerticalMode()
 endfun
 command! ToggleVerticalMode call s:toggleVerticalMode()
 
-if &columns > 130
+if &columns > 150
     ToggleVerticalMode
 endif
 
