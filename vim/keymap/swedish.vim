@@ -11,9 +11,11 @@ loadkeymap
 \" Ä
 [ å
 { Å
+] é
+} É
 < ;
 > :
 \\ '
 | "
 
-"lost keys < > [ \ |
+"lost keys < > [ ] \ |
