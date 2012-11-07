@@ -9,8 +9,11 @@ call pathogen#helptags()
 " Make Y move like D and C
 noremap Y y$
 
-" Use Q to playback macros stored in q
-noremap Q @q
+" Use Q to format a paragraph
+noremap Q gqap
+
+" Set undo break before deleting with C-U
+inoremap <C-U> <C-G>u<C-U>
 
 " Allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -130,20 +133,6 @@ endfun
 command! ToggleRelativeNumber call s:toggleRelativeNumber()
 noremap R :ToggleRelativeNumber<CR>
 
-" F1 toggles automatic word wrap
-fun! s:toggleAutoWrap ()
-    if stridx(&fo, 'a')==-1
-        set fo+=a 
-        echom "Autowrap enabled"
-    else
-        set fo-=a
-        echom "Autowrap disabled"
-    endif
-endfun
-command! InvAutoWrap call s:toggleAutoWrap()
-nnoremap <silent> <F1> :InvAutoWrap<CR>
-inoremap <silent> <F1> <C-o>:InvAutoWrap<CR>
-
 " F2 toggles paste
 set pastetoggle=<F2>
 
@@ -209,23 +198,23 @@ set statusline+=%{&ff=='unix'?'^n':&ff=='dos'?'^r^n':'^r'} "Lineendings
 set statusline+=\ \|\ %4l,\ %2c\               " Row, Col
 
 
-" If you've opened a file w/o write persmission
-" this lets you save it
-command! ForceWrite %!sudo cat > %
-
-
 " When writing prose, it is useful to put undo breaks after each sentence
 command! Prose inoremap <buffer> . .<C-G>u|
             \ inoremap <buffer> ! !<C-G>u|
             \ inoremap <buffer> ? ?<C-G>u|
             \ setlocal spell spelllang=sv,en
-            \     nolist nowrap tw=74 fo=t1 nonu
+            \     nolist nowrap tw=74 fo=t1 nonu|
+            \ augroup PROSE|
+            \   autocmd InsertEnter <buffer> set fo+=a|
+            \   autocmd InsertLeave <buffer> set fo-=a|
+            \ augroup END
 
 command! Code silent! iunmap <buffer> .|
             \ silent! iunmap <buffer> !|
             \ silent! iunmap <buffer> ?|
             \ setlocal nospell list nowrap
-            \     tw=74 fo=cqr1 showbreak=… nu
+            \     tw=74 fo=cqr1 showbreak=… nu|
+            \ silent! autocmd! PROSE * <buffer>
 
 " Code is default mode
 Code
