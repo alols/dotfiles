@@ -10,7 +10,7 @@ call pathogen#helptags()
 noremap Y y$
 
 " Use Q to format a paragraph
-noremap Q gqap
+noremap Q gwip
 
 " Set undo break before deleting with C-U
 inoremap <C-U> <C-G>u<C-U>
@@ -30,6 +30,7 @@ set tabstop=8       " Let an actual tab character be repesented by
 set history=500     " Keep 500 lines of command line history.
 set ruler           " Show the cursor position all the time.
 set showcmd         " Display incomplete commands.
+set colorcolumn=+1  " Set color column = text width
 
 " Being oldfashioned here.
 set noincsearch     " Don't do incremental searching.
@@ -83,6 +84,9 @@ inoremap <C-k> <Esc>k
 " Navigate quickfix list with PageUp and PageDown keys
 nnoremap <silent> <PageDown> :cn<CR>
 nnoremap <silent> <PageUp>   :cN<CR>
+
+" Toggle folds with Space
+nnoremap <Space> za
 
 " Home opens the first error, End opens the last
 nnoremap <silent> <Home>     :cr<CR>
