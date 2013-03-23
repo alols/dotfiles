@@ -52,7 +52,7 @@ set clipboard=unnamedplus
 " Put visually selected text in the '*' register
 set clipboard+=autoselect
 
-" Mice is nice
+" Mice are nice
 set mouse=a
 
 " Switch syntax highlighting on.
