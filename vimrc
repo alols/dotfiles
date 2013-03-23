@@ -45,6 +45,13 @@ set nojoinspaces
 " Autoselect, use icon, don't source menu.vim, left scrollbar.
 set guioptions=aiML
 
+" Use the '+' register as the unnamed register, to make cut and
+" paste berween Vim and other applications easier
+set clipboard=unnamedplus
+
+" Put visually selected text in the '*' register
+set clipboard+=autoselect
+
 " Switch syntax highlighting on.
 syntax on
 
@@ -59,6 +66,8 @@ endif
 
 " Use lots of undo.
 set undolevels=1000
+
+set cryptmethod=blowfish
 
 " Use an undodir if persistant undo is available.
 if has("persistent_undo")
@@ -140,25 +149,8 @@ noremap R :ToggleRelativeNumber<CR>
 " F2 toggles paste
 set pastetoggle=<F2>
 
-" F3 toggles mouse and numbers off
-" This is useful when Vim cannot access
-" the X clipboard
-set nu mouse=a
-fun! s:toggleMouse ()
-    if &mouse=='a'
-        set nonu mouse=
-        echom "Mouse and numbers disabled"
-    else
-        set nu mouse=a
-        echom "Mouse and numbers enabled"
-    endif
-endfun
-command! InvMouse call s:toggleMouse()
-nnoremap <silent> <F3> :InvMouse<CR>
-inoremap <silent> <F3> <C-o>:InvMouse<CR>
-
  " F4 toggles list
-set list listchars=tab:→\ ,eol:↩,trail:\ ,extends:…,precedes:…
+set list listchars=tab:→\ ,trail:\ ,extends:…,precedes:…
 nnoremap <silent> <F4> :setlocal invlist<CR>
 inoremap <silent> <F4> <C-o>:setlocal invlist<CR>
 
