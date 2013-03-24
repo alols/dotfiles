@@ -230,6 +230,9 @@ command! -range=% SoftWrap
             \ <line2>put _ |
             \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
 
+"clang_complete settings
+let g:clang_snippets=1
+let g:clang_snippets_engine="ultisnips"
 
 " Some GPG commands
 " Sign range
