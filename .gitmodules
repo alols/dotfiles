@@ -1,9 +1,6 @@
 [submodule "zdir"]
 	path = zdir
 	url = https://github.com/rupa/z.git
-[submodule "vim/bundle/VimPro"]
-	path = vim/bundle/VimPro
-	url = git@github.com:alols/vim-pro.git
 [submodule "vim/bundle/Fugitive"]
 	path = vim/bundle/Fugitive
 	url = https://github.com/tpope/vim-fugitive.git
