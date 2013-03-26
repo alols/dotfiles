@@ -139,6 +139,7 @@ if &columns > 150
 endif
 
 " R toggles relative number
+set nu
 fun! s:toggleRelativeNumber()
     if &nu
         set rnu
