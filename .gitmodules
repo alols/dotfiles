@@ -10,9 +10,6 @@
 [submodule "vim/bundle/ClangComplete"]
 	path = vim/bundle/ClangComplete
 	url = https://github.com/Rip-Rip/clang_complete.git
-[submodule "vim/bundle/IndentGuides"]
-	path = vim/bundle/IndentGuides
-	url = https://github.com/nathanaelkane/vim-indent-guides.git
 [submodule "vim/bundle/UltiSnips"]
 	path = vim/bundle/UltiSnips
 	url = https://github.com/vim-scripts/UltiSnips.git
