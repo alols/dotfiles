@@ -32,11 +32,11 @@ RED='$(tput setaf 1)$(tput bold)'
 RST='$(tput sgr0)'
 export PS1="\$(
     RET=\$?
-    printf '%s' $GRN \u @\h ' ' $RST $BLU \W $RST
+    printf '%s' \[$GRN\] \u @\h ' ' \[$RST\] \[$BLU\] \W \[$RST\]
     if [[ \$RET != 0 ]]; then
-        printf '%s' ' ' $RED [\$RET] $RST
+        printf '%s' ' ' \[$RED\] [\$RET] \[$RST\]
     fi
-    printf '%s' $BLU ' ' $ ' ' $RST
+    printf '%s' \[$BLU\] ' ' $ ' ' \[$RST\]
     )"
 unset GRN BLU RED RST
 
