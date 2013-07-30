@@ -67,6 +67,9 @@ else
     colorscheme default
 endif
 
+" Avoid delays in terminal
+set ttm=50
+
 " Use lots of undo.
 set undolevels=1000
 
