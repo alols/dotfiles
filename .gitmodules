@@ -1,6 +1,6 @@
 [submodule "zdir"]
 	path = zdir
 	url = https://github.com/rupa/z.git
-[submodule "/home/albols/.vim/bundle/neobundle.vim"]
-	path = /home/albols/.vim/bundle/neobundle.vim
+[submodule "vim/bundle/neobundle.vim"]
+	path = vim/bundle/neobundle.vim
 	url = git://github.com/Shougo/neobundle.vim
