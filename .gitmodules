@@ -1,15 +1,6 @@
 [submodule "zdir"]
 	path = zdir
 	url = https://github.com/rupa/z.git
-[submodule "vim/bundle/Fugitive"]
-	path = vim/bundle/Fugitive
-	url = https://github.com/tpope/vim-fugitive.git
-[submodule "vim/bundle/VimRoom"]
-	path = vim/bundle/VimRoom
-	url = https://github.com/mikewest/vimroom.git
-[submodule "vim/bundle/ClangComplete"]
-	path = vim/bundle/ClangComplete
-	url = https://github.com/Rip-Rip/clang_complete.git
-[submodule "vim/bundle/UltiSnips"]
-	path = vim/bundle/UltiSnips
-	url = https://github.com/vim-scripts/UltiSnips.git
+[submodule "/home/albols/.vim/bundle/neobundle.vim"]
+	path = /home/albols/.vim/bundle/neobundle.vim
+	url = git://github.com/Shougo/neobundle.vim
