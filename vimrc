@@ -2,9 +2,22 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" Init pathogen plugin
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+" Init NeoBundle
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle'))
+
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'mhinz/vim-signify'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'Rip-Rip/clang_complete'
+NeoBundle 'mikewest/vimroom'
+
+" Enable file type detection
+filetype plugin indent on
 
 " Make Y move like D and C
 noremap Y y$
@@ -252,9 +265,6 @@ command! -range=% Str <line1>,<line2>s/^> *//
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
-    " Enable file type detection.
-    filetype plugin indent on
-
     augroup vimrcEx
         au!
         " When editing a file, always jump to the last known cursor position.
@@ -276,3 +286,6 @@ else
   set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
+
+" Check plugins
+NeoBundleCheck
