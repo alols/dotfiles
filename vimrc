@@ -16,6 +16,9 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'tpope/vim-dispatch'
+NeoBundle 'godlygeek/tabular'
 NeoBundle 'vim-scripts/UltiSnips'
 NeoBundle 'Rip-Rip/clang_complete'
 NeoBundle 'mikewest/vimroom'
@@ -123,28 +126,13 @@ set titleold=[terminal]
 "Fix for xcape
 inoremap <C-k> <Esc>k
 
-" Navigate quickfix list with PageUp and PageDown keys
-nnoremap <silent> <PageDown> :cn<CR>
-nnoremap <silent> <PageUp>   :cN<CR>
-
-" Home opens the first error, End opens the last
-nnoremap <silent> <Home>     :cr<CR>
-nnoremap <silent> <End>      :cla<CR>
-
-" Left and right switches matching tags.
-" Up and Down moves you up and down the tag-stack.
-nnoremap <silent> <Right>    :tn<CR>
-nnoremap <silent> <Left>     :tN<CR>
-nnoremap <silent> <Down>     :po<CR>
-nnoremap <silent> <Up>       :ta<CR>
-
 " I prefer vertical splitting over horizontal
 let s:verticalMode=0
 fun! s:toggleVerticalMode()
     if !s:verticalMode
         set splitright
         set winwidth=80
-        cabbrev help vert help
+        cabbrev h vert help
         cabbrev sp vsp
         cabbrev hsp sp
         set diffopt+=vertical
@@ -152,7 +140,8 @@ fun! s:toggleVerticalMode()
     else
         set nosplitright
         set winwidth=20
-        unabbrev help
+        unabbrev h
+        cabbrev  h help
         unabbrev sp
         unabbrev hsp
         set diffopt-=vertical
@@ -216,7 +205,7 @@ set statusline=%3n\                            " Buffer number
 set statusline+=%{&ma?&ro?'=':'':'-'}          " Nomodifiable: -, Readonly: =
 set statusline+=%{&mod?'+':'\ '}\              " Modified: +
 set statusline+=\"%f\"\ %L\ lines%<%=          " Filename, nr lines
-set statusline+=%{fugitive#statusline()}\ \|\   "
+set statusline+=%{fugitive#statusline()}\ \|\  " Git branch
 set statusline+=%{strlen(&ft)?&ft.'\ \|\ ':''} " Filetype
 set statusline+=%{strlen(&fenc)?&fenc.'\ ':''} " Encoding
 set statusline+=%{&ff=='unix'?'^n':&ff=='dos'?'^r^n':'^r'} "Lineendings
@@ -261,11 +250,17 @@ command! -range=% SoftWrap
 let g:clang_snippets=1
 let g:clang_snippets_engine="ultisnips"
 
+"unite settings
+let g:unite_split_rule="botright"
+let g:unite_source_history_yank_enable=1
+
 "Some abbreviations for plugins
 cabbrev a  Ack
 cabbrev u  Unite
-cabbrev ub Unite -buffer-name=recent -no-split -quick-match buffer file_mru
-cabbrev uf Unite -buffer-name=find -no-split -start-insert file_rec/async
+cabbrev ub Unite -buffer-name=recent -quick-match buffer file_mru
+cabbrev uf Unite -buffer-name=find -start-insert file_rec/async
+cabbrev uy Unite -buffer-name=yank history/yank
+cabbrev m  Make
 
 " Some GPG commands
 " Sign range
