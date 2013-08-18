@@ -1,3 +1,7 @@
 vim/bundle
 vim/localbundle
 mutt/cache
+*.pyc
+vim/.netrwhist
+vim/spell/*.add
+vim/spell/*.add.spl
