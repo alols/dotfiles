@@ -9,18 +9,32 @@ endif
 
 call neobundle#rc(expand('~/.vim/bundle'))
 
+" Don't forget to cd vim/bundle/vimproc && make -f make_unix.mak 
 NeoBundle 'Shougo/vimproc'
+
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'mhinz/vim-signify'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'vim-scripts/UltiSnips'
 NeoBundle 'Rip-Rip/clang_complete'
 NeoBundle 'mikewest/vimroom'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'nelstrom/vim-markdown-folding'
+NeoBundleLocal ~/.vim/localbundle
+NeoBundleCheck
 
 " Enable file type detection
 filetype plugin indent on
 
 " Make Y move like D and C
 noremap Y y$
+
+" Use space to enter command mode
+nnoremap <Space>  :
+nnoremap @<Space> @:
+" Until I learn to use space
+nnoremap :  <Nop>
 
 " Use Q to format a paragraph
 noremap Q gwip
@@ -113,9 +127,6 @@ inoremap <C-k> <Esc>k
 nnoremap <silent> <PageDown> :cn<CR>
 nnoremap <silent> <PageUp>   :cN<CR>
 
-" Toggle folds with Space
-nnoremap <Space> za
-
 " Home opens the first error, End opens the last
 nnoremap <silent> <Home>     :cr<CR>
 nnoremap <silent> <End>      :cla<CR>
@@ -205,14 +216,13 @@ set statusline=%3n\                            " Buffer number
 set statusline+=%{&ma?&ro?'=':'':'-'}          " Nomodifiable: -, Readonly: =
 set statusline+=%{&mod?'+':'\ '}\              " Modified: +
 set statusline+=\"%f\"\ %L\ lines%<%=          " Filename, nr lines
-set statusline+=ts=%{&ts}\                     " Indention settings
-set statusline+=%{&sts?'sts='.&sts.'\ ':''}    " Indention settings
-set statusline+=sw=%{&sw}\ %{&et?'et\ ':''}\|\ " Indention settings
+set statusline+=%{fugitive#statusline()}\ \|\   "
 set statusline+=%{strlen(&ft)?&ft.'\ \|\ ':''} " Filetype
 set statusline+=%{strlen(&fenc)?&fenc.'\ ':''} " Encoding
 set statusline+=%{&ff=='unix'?'^n':&ff=='dos'?'^r^n':'^r'} "Lineendings
 set statusline+=\ \|\ %4l,\ %2c\               " Row, Col
 
+set fillchars=
 
 " When writing prose, it is useful to put undo breaks after each sentence
 command! Prose inoremap <buffer> . .<C-G>u|
@@ -251,6 +261,12 @@ command! -range=% SoftWrap
 let g:clang_snippets=1
 let g:clang_snippets_engine="ultisnips"
 
+"Some abbreviations for plugins
+cabbrev a  Ack
+cabbrev u  Unite
+cabbrev ub Unite -buffer-name=recent -no-split -quick-match buffer file_mru
+cabbrev uf Unite -buffer-name=find -no-split -start-insert file_rec/async
+
 " Some GPG commands
 " Sign range
 command! -range=% Sig <line1>,<line2>!gpg -ats
@@ -274,18 +290,16 @@ if has("autocmd")
           \ endif
 
         " Lets be faithful to out line editor heritage
-        autocmd WinEnter * set cursorline
-        autocmd WinLeave * set nocursorline
+        if &t_Co == 16
+            set cursorline
+            autocmd WinEnter * set cursorline
+            autocmd WinLeave * set nocursorline
+        endif
 
     augroup END
-
-    set cursorline
 
 else
 
   set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
-
-" Check plugins
-NeoBundleCheck
