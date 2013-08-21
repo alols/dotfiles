@@ -119,6 +119,9 @@ endif
 set wildmenu
 set wildmode=list:longest
 
+" Insert mode completion
+set completeopt=menuone
+
 "use terminal title.
 set title
 set titleold=[terminal]
@@ -198,7 +201,6 @@ endfun
 command! InvColors call s:toggleColors()
 nnoremap <F6> :InvColors<CR>
 
-
 " Statusline
 set laststatus=2                               " Allways show
 set statusline=%3n\                            " Buffer number
@@ -249,6 +251,12 @@ command! -range=% SoftWrap
 "clang_complete settings
 let g:clang_snippets=1
 let g:clang_snippets_engine="ultisnips"
+let g:clang_complete_macros=1
+"these two enables error checking
+let g:clang_complete_copen=1
+let g:clang_hl_errors=1
+"check for errors with leader-c
+noremap <Leader>c :<C-U>call g:ClangUpdateQuickFix()<CR>
 
 "unite settings
 let g:unite_split_rule="botright"
