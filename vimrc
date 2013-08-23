@@ -258,8 +258,6 @@ let g:clang_complete_macros=1
 "these two enables error checking
 let g:clang_complete_copen=1
 let g:clang_hl_errors=1
-"check for errors with leader-c
-noremap <Leader>c :<C-U>call g:ClangUpdateQuickFix()<CR>
 
 "unite settings
 let g:unite_split_rule="botright"
@@ -311,3 +309,5 @@ else
   set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
+
+au BufNewFile,BufRead *.qml			setf qml
