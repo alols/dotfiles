@@ -13,7 +13,7 @@ call neobundle#rc(expand('~/.vim/bundle'))
 NeoBundle 'Shougo/vimproc'
 
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'mhinz/vim-signify'
+"NeoBundle 'mhinz/vim-signify'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-unimpaired'
@@ -32,6 +32,9 @@ filetype plugin indent on
 
 " Make Y move like D and C
 noremap Y y$
+
+"Since I don't use marks
+let mapleader='m'
 
 " Use space to enter command mode
 nnoremap <Space>  :
@@ -255,8 +258,6 @@ let g:clang_complete_macros=1
 "these two enables error checking
 let g:clang_complete_copen=1
 let g:clang_hl_errors=1
-"check for errors with leader-c
-noremap <Leader>c :<C-U>call g:ClangUpdateQuickFix()<CR>
 
 "unite settings
 let g:unite_split_rule="botright"
@@ -265,10 +266,26 @@ let g:unite_source_history_yank_enable=1
 "Some abbreviations for plugins
 cabbrev a  Ack
 cabbrev u  Unite
-cabbrev ub Unite -buffer-name=recent -quick-match buffer file_mru
-cabbrev uf Unite -buffer-name=find -start-insert file_rec/async
-cabbrev uy Unite -buffer-name=yank history/yank
 cabbrev m  Make
+
+noremap <Leader>c :<C-U>call g:ClangUpdateQuickFix()<CR>
+noremap <Leader>l :<C-u>Unite -buffer-name=recent -quick-match buffer file_mru<CR>
+noremap <Leader>f :<C-u>Unite -buffer-name=find -start-insert file_rec/async -no-quit<CR>
+noremap <Leader>y :<C-u>Unite -buffer-name=yank history/yank<CR>
+
+noremap <Leader>g :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
+
+fun! Unext(motion)
+    let l:uwin = bufwinnr("*unite* - grep")
+    echo l:uwin
+    if l:uwin != -1
+        exec "norm! ".l:uwin."\<c-w>\<c-w>"
+        exec "norm! ".a:motion
+        exec "norm \<CR>"
+    endif
+endfun
+noremap ]g :<C-U>call Unext("j")<CR>
+noremap [g :<C-U>call Unext("k")<CR>
 
 " Some GPG commands
 " Sign range
@@ -306,3 +323,5 @@ else
   set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
+
+au BufNewFile,BufRead *.qml			setf qml
