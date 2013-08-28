@@ -285,6 +285,23 @@ command! -range=% Dec <line1>,<line2>!gpg -atd
 " Strip range of leading ">"
 command! -range=% Str <line1>,<line2>s/^> *//
 
+" Found this online and modified it a bit.
+" If jumping beyond last window try to jump to tmux split instead.
+" Also see tmux.conf
+if exists('$TMUX')
+  function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+    let previous_winnr = winnr()
+    silent! execute "wincmd " . a:wincmd
+    if previous_winnr == winnr()
+      call system("tmux select-pane -" . a:tmuxdir)
+      redraw!
+    endif
+  endfunction
+  noremap <silent> <C-w>h :<C-u>call TmuxOrSplitSwitch('h', 'L')<cr>
+  noremap <silent> <C-w>j :<C-u>call TmuxOrSplitSwitch('j', 'D')<cr>
+  noremap <silent> <C-w>k :<C-u>call TmuxOrSplitSwitch('k', 'U')<cr>
+  noremap <silent> <C-w>l :<C-u>call TmuxOrSplitSwitch('l', 'R')<cr>
+endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
