@@ -273,6 +273,20 @@ noremap <Leader>l :<C-u>Unite -buffer-name=recent -quick-match buffer file_mru<C
 noremap <Leader>f :<C-u>Unite -buffer-name=find -start-insert file_rec/async -no-quit<CR>
 noremap <Leader>y :<C-u>Unite -buffer-name=yank history/yank<CR>
 
+noremap <Leader>g :<C-u>Unite -buffer-name=grep -no-quit grep:.:-iR:<CR>
+
+fun! Unext(motion)
+    let l:uwin = bufwinnr("*unite* - grep")
+    echo l:uwin
+    if l:uwin != -1
+        exec "norm! ".l:uwin."\<c-w>\<c-w>"
+        exec "norm! ".a:motion
+        exec "norm \<CR>"
+    endif
+endfun
+noremap ]g :<C-U>call Unext("j")<CR>
+noremap [g :<C-U>call Unext("k")<CR>
+
 " Some GPG commands
 " Sign range
 command! -range=% Sig <line1>,<line2>!gpg -ats
