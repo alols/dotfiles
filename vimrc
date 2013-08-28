@@ -270,7 +270,7 @@ noremap <Leader>l :<C-u>Unite -buffer-name=recent -quick-match buffer file_mru<C
 noremap <Leader>f :<C-u>Unite -buffer-name=find -start-insert file_rec/async -no-quit<CR>
 noremap <Leader>y :<C-u>Unite -buffer-name=yank history/yank<CR>
 
-noremap <Leader>g :<C-u>Unite -buffer-name=grep -no-quit grep<CR>
+noremap <Leader>g :<C-u>Unite -buffer-name=grep -no-quit grep:.:-iR:<CR>
 
 fun! Unext(motion)
     let l:uwin = bufwinnr("*unite* - grep")
