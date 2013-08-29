@@ -294,10 +294,10 @@ if exists('$TMUX')
       redraw!
     endif
   endfunction
-  noremap <silent> <C-w>h :<C-u>call TmuxOrSplitSwitch('h', 'L')<cr>
-  noremap <silent> <C-w>j :<C-u>call TmuxOrSplitSwitch('j', 'D')<cr>
-  noremap <silent> <C-w>k :<C-u>call TmuxOrSplitSwitch('k', 'U')<cr>
-  noremap <silent> <C-w>l :<C-u>call TmuxOrSplitSwitch('l', 'R')<cr>
+  noremap <silent> <Left>  :<C-u>call TmuxOrSplitSwitch('h', 'L')<cr>
+  noremap <silent> <Down>  :<C-u>call TmuxOrSplitSwitch('j', 'D')<cr>
+  noremap <silent> <Up>    :<C-u>call TmuxOrSplitSwitch('k', 'U')<cr>
+  noremap <silent> <Right> :<C-u>call TmuxOrSplitSwitch('l', 'R')<cr>
 endif
 
 " Only do this part when compiled with support for autocommands.
