@@ -36,14 +36,11 @@ noremap Y y$
 "Since I don't use marks
 let mapleader='m'
 
-" Use space to enter command mode
-nnoremap <Space>  :
-nnoremap @<Space> @:
-" Until I learn to use space
-nnoremap :  <Nop>
-
 " Use Q to format a paragraph
 noremap Q gwip
+
+" Use space to toggle folds
+nnoremap <Space> za
 
 " Set undo break before deleting with C-U
 inoremap <C-U> <C-G>u<C-U>
