@@ -24,6 +24,7 @@ NeoBundle 'Rip-Rip/clang_complete'
 NeoBundle 'mikewest/vimroom'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'nelstrom/vim-markdown-folding'
+NeoBundle 'alols/vimux'
 NeoBundleLocal ~/.vim/localbundle
 NeoBundleCheck
 
