@@ -267,7 +267,7 @@ cabbrev m  Make
 
 noremap <Leader>c :<C-U>call g:ClangUpdateQuickFix()<CR>
 noremap <Leader>l :<C-u>Unite -buffer-name=recent -quick-match buffer file_mru<CR>
-noremap <Leader>f :<C-u>Unite -buffer-name=find -start-insert file_rec/async -no-quit<CR>
+noremap <Leader>f :<C-u>Unite -buffer-name=find -start-insert file_rec/async<CR>
 noremap <Leader>y :<C-u>Unite -buffer-name=yank history/yank<CR>
 
 noremap <Leader>g :<C-u>Unite -buffer-name=grep -no-quit grep:.:-iR:<CR>
@@ -321,6 +321,12 @@ if has("autocmd")
         autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line("$") |
           \   exe "normal! g`\"" |
+          \ endif
+
+        " When starting a diff, jump to the top.
+        autocmd FilterWritePost *
+          \ if &diff |
+          \   exe "normal! gg" |
           \ endif
 
         " Lets be faithful to out line editor heritage
