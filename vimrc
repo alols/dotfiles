@@ -25,6 +25,7 @@ NeoBundle 'mikewest/vimroom'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'nelstrom/vim-markdown-folding'
 NeoBundle 'alols/vimux'
+NeoBundle 'davidhalter/jedi-vim'
 NeoBundleLocal ~/.vim/localbundle
 NeoBundleCheck
 
@@ -332,3 +333,26 @@ else
 endif " has("autocmd")
 
 au BufNewFile,BufRead *.qml			setf qml
+
+
+let s:privdir = expand('~/Private')
+if finddir(s:privdir) != ""
+    " Private directory exists
+    if 0 == match(getcwd(), s:privdir)
+        " Vim launched inside private directory
+        " Location of viminfo-file (must be last viminfo-setting)
+        set viminfo+=n~/Private/.viminfo
+        " Location of undo files
+        set undodir=~/Private/tmp/vimundo
+        " Location of swapfile, '.' = same dir as file
+        set directory=.,~/Private/tmp
+    else
+        " Vim launched outside of private directory
+        " Don't allow editing of files in private
+        augroup privateDirAu
+            au!
+            execute 'autocmd BufRead '.s:privdir.'/* bd |
+                        \ echoerr "Tried to open file under '.s:privdir.' from outside of it"'
+        augroup END
+    endif
+endif
