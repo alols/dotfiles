@@ -26,6 +26,7 @@ NeoBundle 'tpope/vim-markdown'
 NeoBundle 'nelstrom/vim-markdown-folding'
 NeoBundle 'alols/vimux'
 NeoBundle 'davidhalter/jedi-vim'
+NeoBundle 'aaronbieber/quicktask'
 NeoBundleLocal ~/.vim/localbundle
 NeoBundleCheck
 
@@ -271,6 +272,9 @@ noremap <Leader>c :<C-U>call g:ClangUpdateQuickFix()<CR>
 noremap <Leader>l :<C-u>Unite -buffer-name=recent -quick-match buffer file_mru<CR>
 noremap <Leader>f :<C-u>Unite -buffer-name=find -start-insert file_rec/async<CR>
 noremap <Leader>y :<C-u>Unite -buffer-name=yank history/yank<CR>
+
+noremap <Leader>p :<C-u>call VimuxPromptCommand()<CR>
+noremap <Leader>r :<C-u>call VimuxRunLastCommand()<CR>
 
 " Some GPG commands
 " Sign range
