@@ -24,9 +24,12 @@ NeoBundle 'Rip-Rip/clang_complete'
 NeoBundle 'mikewest/vimroom'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'nelstrom/vim-markdown-folding'
-NeoBundle 'alols/vimux'
+NeoBundle 'benmills/vimux'
 NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'aaronbieber/quicktask'
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'xolox/vim-lua-ftplugin'
+NeoBundle 'alols/vim-love-efm'
 NeoBundleLocal ~/.vim/localbundle
 NeoBundleCheck
 
@@ -57,8 +60,8 @@ set hidden
 set shiftwidth=4    " Set indentation step to four spaces
 set expandtab       " Turn tab key presses into spaces in insert mode
 set softtabstop=4   " Insert four spaces with every tab press
-set tabstop=8       " Let an actual tab character be repesented by
-                    " eight spaces
+set tabstop=4       " Let an actual tab character be repesented by
+                    " four spaces
 
 set history=500     " Keep 500 lines of command line history.
 set ruler           " Show the cursor position all the time.
