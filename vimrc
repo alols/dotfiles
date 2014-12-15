@@ -258,6 +258,7 @@ command! -range=% SoftWrap
 let g:clang_snippets=1
 let g:clang_snippets_engine="ultisnips"
 let g:clang_complete_macros=1
+let g:clang_library_path="/usr/lib/llvm-3.5/lib"
 "these two enables error checking
 let g:clang_complete_copen=1
 let g:clang_hl_errors=1
