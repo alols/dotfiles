@@ -38,6 +38,7 @@ NeoBundle 'aaronbieber/quicktask'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-lua-ftplugin'
 NeoBundle 'alols/vim-love-efm'
+NeoBundle 'majutsushi/tagbar'
 NeoBundleLocal ~/.vim/localbundle
 NeoBundleCheck
 
@@ -284,13 +285,16 @@ cabbrev a  Ack
 cabbrev u  Unite
 cabbrev m  Make
 
-noremap mc :<C-U>call g:ClangUpdateQuickFix()<CR>
 noremap ml :<C-u>Unite -buffer-name=recent buffer file_mru<CR>
 noremap mf :<C-u>Unite -buffer-name=find -start-insert file_rec/async<CR>
 noremap my :<C-u>Unite -buffer-name=yank history/yank<CR>
 
 noremap mp :<C-u>call VimuxPromptCommand()<CR>
 noremap mr :<C-u>call VimuxRunLastCommand()<CR>
+
+noremap mc :<C-U>call g:ClangUpdateQuickFix()<CR>
+
+noremap mt :<C-U>TagbarToggle<CR>
 
 " Some GPG commands
 " Sign range
