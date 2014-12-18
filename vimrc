@@ -9,10 +9,18 @@ endif
 
 call neobundle#rc(expand('~/.vim/bundle'))
 
-" Don't forget to cd vim/bundle/vimproc && make -f make_unix.mak 
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc.vim', {
+      \   'build' : {
+      \     'windows' : 'tools\\update-dll-mingw',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'linux' : 'make',
+      \     'unix' : 'gmake',
+      \   }
+      \ }
 
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 "NeoBundle 'mhinz/vim-signify'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'tpope/vim-fugitive'
@@ -38,9 +46,6 @@ filetype plugin indent on
 
 " Make Y move like D and C
 noremap Y y$
-
-"Since I don't use marks
-let mapleader='m'
 
 " Use Q to format a paragraph
 noremap Q gwip
@@ -90,6 +95,13 @@ set clipboard+=autoselect
 
 " Mice are nice
 set mouse=a
+
+" folding
+set foldmethod=indent
+set foldcolumn=2
+set foldnestmax=1
+set foldminlines=2
+set foldtext=
 
 " Switch syntax highlighting on.
 syntax on
@@ -272,13 +284,13 @@ cabbrev a  Ack
 cabbrev u  Unite
 cabbrev m  Make
 
-noremap <Leader>c :<C-U>call g:ClangUpdateQuickFix()<CR>
-noremap <Leader>l :<C-u>Unite -buffer-name=recent -quick-match buffer file_mru<CR>
-noremap <Leader>f :<C-u>Unite -buffer-name=find -start-insert file_rec/async<CR>
-noremap <Leader>y :<C-u>Unite -buffer-name=yank history/yank<CR>
+noremap mc :<C-U>call g:ClangUpdateQuickFix()<CR>
+noremap ml :<C-u>Unite -buffer-name=recent buffer file_mru<CR>
+noremap mf :<C-u>Unite -buffer-name=find -start-insert file_rec/async<CR>
+noremap my :<C-u>Unite -buffer-name=yank history/yank<CR>
 
-noremap <Leader>p :<C-u>call VimuxPromptCommand()<CR>
-noremap <Leader>r :<C-u>call VimuxRunLastCommand()<CR>
+noremap mp :<C-u>call VimuxPromptCommand()<CR>
+noremap mr :<C-u>call VimuxRunLastCommand()<CR>
 
 " Some GPG commands
 " Sign range
