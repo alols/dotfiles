@@ -104,17 +104,15 @@ set foldnestmax=1
 set foldminlines=2
 set foldtext=
 
+if &term=~"xterm" || &term=~"screen"
+    set t_Co=16
+    set t_Sf=[3%p1%dm
+    set t_Sb=[4%p1%dm
+    colorscheme dark16
+endif
+
 " Switch syntax highlighting on.
 syntax on
-
-" Use solarized colorscheme with the GUI and URxvt.
-if has("gui_running") || $COLORTERM=="rxvt-xpm" || $COLORTERM=="gnome-terminal"
-    set t_Co=16
-    set background=dark
-    colorscheme solarized
-else
-    colorscheme default
-endif
 
 " Avoid delays in terminal
 set ttm=50
