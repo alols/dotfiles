@@ -25,37 +25,38 @@ hi! link	CursorColumn	CursorLine
 hi! link	ColorColumn	CursorLine
 
 " Surroundings
-hi! LineNr		ctermfg=lightgray	ctermbg=darkgray	cterm=none
-hi! CursorLineNr	ctermfg=cyan		ctermbg=none		cterm=none
-hi! StatusLineNC	ctermfg=darkcyan	ctermbg=black		cterm=none
+hi! NonText		ctermfg=lightgray	ctermbg=darkgray	cterm=none
 hi! StatusLine		ctermfg=cyan		ctermbg=darkgray	cterm=none
+hi! link	StatusLineNC	NonText
 hi! VertSplit		ctermfg=darkgray	ctermbg=darkgray	cterm=none
-hi! TabLine		ctermfg=lightgray	ctermbg=darkgray	cterm=none
-hi! TabLineSel		ctermfg=white		ctermbg=darkgray	cterm=none
-hi! TabLineFill		ctermfg=none		ctermbg=darkgray	cterm=none
-hi! link SignColumn	LineNr
-hi! link FoldColumn	LineNr
+hi! link	LineNr		NonText
+hi! link	CursorLineNr	StatusLine
+hi! link	SignColumn	NonText
+hi! link	FoldColumn	StatusLine
+hi! link	TabLine		NonText
+hi! link	TabLineSel	StatusLine
+hi! link	TabLineFill	VertSplit
 
 " Diff
-hi! DiffAdd	ctermfg=none		ctermbg=darkgray	cterm=none
-hi! DiffDelete	ctermfg=red		ctermbg=darkgray	cterm=none
+hi! DiffAdd	ctermfg=none		ctermbg=darkgray	cterm=bold
+hi! DiffDelete	ctermfg=darkmagenta	ctermbg=darkgray	cterm=bold
 hi! DiffChange	ctermfg=none		ctermbg=darkgray	cterm=none
-hi! DiffText	ctermfg=magenta		ctermbg=darkgray	cterm=underline
+hi! DiffText	ctermfg=none		ctermbg=darkmagenta	cterm=bold
 
 hi! MatchParen	ctermfg=none		ctermbg=darkmagenta	cterm=none
 
 " Marked text
-hi! Visual	ctermfg=black		ctermbg=darkmagenta	cterm=none
-hi! link	IncSearch	Visual
+hi! Visual	ctermfg=black		ctermbg=white		cterm=none
+hi! IncSearch	ctermfg=black		ctermbg=darkmagenta	cterm=none
 hi! link	Search		IncSearch
 
 hi! Folded	ctermfg=cyan	ctermbg=darkgray		cterm=none
 
 " Pop-up menu
-hi! Pmenu	ctermfg=lightgray	ctermbg=darkgray	cterm=none
+hi! Pmenu	ctermfg=white		ctermbg=darkgray	cterm=none
 hi! PmenuSBar	ctermfg=none		ctermbg=darkgray	cterm=none
 hi! PmenuThumb	ctermfg=none		ctermbg=lightgray	cterm=none
-hi! link	PmenuSel	Visual
+hi! link	PmenuSel	IncSearch
 
 " Spell checker
 hi! SpellBad	ctermfg=red		ctermbg=none		cterm=underline
@@ -70,12 +71,11 @@ hi! Title	ctermfg=darkcyan	ctermbg=none		cterm=bold
 hi! ErrorMsg	ctermfg=white		ctermbg=darkred		cterm=bold
 hi! link	WarningMsg	ErrorMsg
 hi! link	Question	MoreMsg
-hi! link	WildMenu	Visual
+hi! link	WildMenu	IncSearch
 hi! link	MoreMsg		Title
 hi! link	ModeMsg		MoreMsg
 
 hi! link	SpecialKey	NonText
-hi! NonText	ctermfg=lightgray	ctermbg=none		cterm=none
 
 " Syntax
 hi! Comment	ctermfg=lightgray	ctermbg=none		cterm=none
