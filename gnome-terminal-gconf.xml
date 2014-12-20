@@ -18,7 +18,7 @@
       <key>Default/background_color</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/background_color</schema_key>
       <value>
-        <string>#020209091C1C</string>
+        <string>#0A091A1A0A09</string>
       </value>
     </entry>
     <entry>
@@ -53,14 +53,14 @@
       <key>Default/bold_color</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/bold_color</schema_key>
       <value>
-        <string>#A7A791918A8A</string>
+        <string>#0000F0EF0000</string>
       </value>
     </entry>
     <entry>
       <key>Default/bold_color_same_as_fg</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/bold_color_same_as_fg</schema_key>
       <value>
-        <bool>false</bool>
+        <bool>true</bool>
       </value>
     </entry>
     <entry>
@@ -123,14 +123,14 @@
       <key>Default/font</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/font</schema_key>
       <value>
-        <string>WenQuanYi Micro Hei Mono 12</string>
+        <string>Courier 10 Pitch 12</string>
       </value>
     </entry>
     <entry>
       <key>Default/foreground_color</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/foreground_color</schema_key>
       <value>
-        <string>#8C8C84847171</string>
+        <string>#7373D2D21616</string>
       </value>
     </entry>
     <entry>
@@ -151,7 +151,7 @@
       <key>Default/palette</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/palette</schema_key>
       <value>
-        <string>#111117172A2A:#DCDC32322F2F:#858599990000:#B5B589890000:#26268B8BD2D2:#D3D336368282:#2A2AA1A19898:#FDFDF6F6E3E3:#020209091C1C:#CBCB4B4B1616:#6C6C51514242:#65657B7B8383:#8C8C84847171:#6C6C7171C4C4:#A7A791918A8A:#EEEEE8E8D5D5</string>
+        <string>#0A091A1A0A09:#A4A400000000:#4E4E9A9A0606:#A0A0A0A00000:#34346565A4A4:#BDBD4040BDBD:#EDEDD4D40000:#555557575353:#000000000000:#CCCC00000000:#F5F579790000:#C4C4A0A00000:#72729F9FCFCF:#DDDD8080DDDD:#8A8AE2E23434:#7373D2D21616</string>
       </value>
     </entry>
     <entry>
@@ -242,7 +242,7 @@
       <key>Default/use_system_font</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/use_system_font</schema_key>
       <value>
-        <bool>true</bool>
+        <bool>false</bool>
       </value>
     </entry>
     <entry>
@@ -256,12 +256,234 @@
       <key>Default/visible_name</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/visible_name</schema_key>
       <value>
-        <string>dotfiles</string>
+        <string>green</string>
       </value>
     </entry>
     <entry>
       <key>Default/word_chars</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/word_chars</schema_key>
+      <value>
+        <string>-A-Za-z0-9,./?%&amp;#:_=+@~</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/allow_bold</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/alternate_screen_scroll</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/background_color</key>
+      <value>
+        <string>#00002B2A3636</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/background_darkness</key>
+      <value>
+        <float>1</float>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/background_image</key>
+      <value>
+        <string>/home/alol/Desktop/feedback_files/tick.png</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/background_type</key>
+      <value>
+        <string>solid</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/backspace_binding</key>
+      <value>
+        <string>ascii-del</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/bold_color</key>
+      <value>
+        <string>#000000000000</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/bold_color_same_as_fg</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/cursor_blink_mode</key>
+      <value>
+        <string>system</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/cursor_shape</key>
+      <value>
+        <string>block</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/custom_command</key>
+      <value>
+        <string></string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/default_show_menubar</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/default_size_columns</key>
+      <value>
+        <int>80</int>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/default_size_rows</key>
+      <value>
+        <int>24</int>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/delete_binding</key>
+      <value>
+        <string>escape-sequence</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/exit_action</key>
+      <value>
+        <string>close</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/font</key>
+      <value>
+        <string>WenQuanYi Micro Hei Mono 12</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/foreground_color</key>
+      <value>
+        <string>#EEEEE8E8D5D5</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/login_shell</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/palette</key>
+      <value>
+        <string>#00002B2A3636:#DCDC32312F2F:#858599990000:#B5B589890000:#34346565A4A4:#D3D336368281:#2A29A1A19898:#9393A1A1A1A1:#070736354242:#CBCB4B4B1616:#8A8AE2E23434:#FCFCE9E94F4F:#72729F9FCFCF:#FFFF3D709B9D:#3146D035D035:#EEEEE8E8D5D5</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/scroll_background</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/scroll_on_keystroke</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/scroll_on_output</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/scrollback_lines</key>
+      <value>
+        <int>2048</int>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/scrollback_unlimited</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/scrollbar_position</key>
+      <value>
+        <string>hidden</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/silent_bell</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/title</key>
+      <value>
+        <string>Terminal</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/title_mode</key>
+      <value>
+        <string>replace</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/update_records</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/use_custom_command</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/use_custom_default_size</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/use_system_font</key>
+      <value>
+        <bool>true</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/use_theme_colors</key>
+      <value>
+        <bool>false</bool>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/visible_name</key>
+      <value>
+        <string>solar-like</string>
+      </value>
+    </entry>
+    <entry>
+      <key>Profile0/word_chars</key>
       <value>
         <string>-A-Za-z0-9,./?%&amp;#:_=+@~</string>
       </value>
