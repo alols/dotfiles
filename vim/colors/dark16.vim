@@ -37,10 +37,10 @@ hi! link SignColumn	LineNr
 hi! link FoldColumn	LineNr
 
 " Diff
-hi! DiffAdd	ctermfg=none		ctermbg=darkgray	cterm=bold
-hi! DiffDelete	ctermfg=red		ctermbg=none		cterm=bold
+hi! DiffAdd	ctermfg=none		ctermbg=darkgray	cterm=none
+hi! DiffDelete	ctermfg=red		ctermbg=darkgray	cterm=none
 hi! DiffChange	ctermfg=none		ctermbg=darkgray	cterm=none
-hi! DiffText	ctermfg=red		ctermbg=darkgray	cterm=bold,underline
+hi! DiffText	ctermfg=magenta		ctermbg=darkgray	cterm=underline
 
 hi! MatchParen	ctermfg=none		ctermbg=darkmagenta	cterm=none
 
