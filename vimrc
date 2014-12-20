@@ -72,7 +72,9 @@ set tabstop=4       " Let an actual tab character be repesented by
 set history=500     " Keep 500 lines of command line history.
 set ruler           " Show the cursor position all the time.
 set showcmd         " Display incomplete commands.
-set colorcolumn=+1  " Set color column = text width
+
+" Set all columns past textwidth as color column
+execute "set colorcolumn=+".join(range(1,255),',+')
 
 " Being oldfashioned here.
 set noincsearch     " Don't do incremental searching.
@@ -106,8 +108,6 @@ set foldtext=
 
 if &term=~"xterm" || &term=~"screen"
     set t_Co=16
-    set t_Sf=[3%p1%dm
-    set t_Sb=[4%p1%dm
     colorscheme dark16
 endif
 
