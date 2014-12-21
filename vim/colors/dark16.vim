@@ -32,16 +32,15 @@ hi! VertSplit		ctermfg=darkgray	ctermbg=darkgray	cterm=none
 hi! link	LineNr		NonText
 hi! link	CursorLineNr	StatusLine
 hi! link	SignColumn	NonText
-hi! link	FoldColumn	StatusLine
 hi! link	TabLine		NonText
 hi! link	TabLineSel	StatusLine
 hi! link	TabLineFill	VertSplit
 
 " Diff
-hi! DiffAdd	ctermfg=none		ctermbg=darkgray	cterm=bold
-hi! DiffDelete	ctermfg=darkmagenta	ctermbg=darkgray	cterm=bold
+hi! DiffAdd	ctermfg=cyan		ctermbg=darkgray	cterm=bold
+hi! DiffDelete	ctermfg=magenta		ctermbg=darkgray	cterm=none
 hi! DiffChange	ctermfg=none		ctermbg=darkgray	cterm=none
-hi! DiffText	ctermfg=none		ctermbg=darkmagenta	cterm=bold
+hi! DiffText	ctermfg=cyan		ctermbg=darkmagenta	cterm=bold
 
 hi! MatchParen	ctermfg=none		ctermbg=darkmagenta	cterm=none
 
@@ -50,7 +49,8 @@ hi! Visual	ctermfg=black		ctermbg=white		cterm=none
 hi! IncSearch	ctermfg=black		ctermbg=darkmagenta	cterm=none
 hi! link	Search		IncSearch
 
-hi! Folded	ctermfg=cyan	ctermbg=darkgray		cterm=none
+hi! Folded	ctermfg=none	ctermbg=none		cterm=underline
+hi! FoldColumn	ctermfg=white	ctermbg=darkgray	cterm=none
 
 " Pop-up menu
 hi! Pmenu	ctermfg=white		ctermbg=darkgray	cterm=none
