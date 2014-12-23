@@ -40,7 +40,7 @@ hi! link	TabLineFill	VertSplit
 hi! DiffAdd	ctermfg=cyan		ctermbg=darkgray	cterm=bold
 hi! DiffDelete	ctermfg=magenta		ctermbg=darkgray	cterm=none
 hi! DiffChange	ctermfg=none		ctermbg=darkgray	cterm=none
-hi! DiffText	ctermfg=cyan		ctermbg=darkmagenta	cterm=bold
+hi! DiffText	ctermfg=cyan		ctermbg=darkgray	cterm=bold
 
 hi! MatchParen	ctermfg=none		ctermbg=darkmagenta	cterm=none
 
@@ -59,10 +59,10 @@ hi! PmenuThumb	ctermfg=none		ctermbg=lightgray	cterm=none
 hi! link	PmenuSel	IncSearch
 
 " Spell checker
-hi! SpellBad	ctermfg=red		ctermbg=none		cterm=underline
-hi! SpellCap	ctermfg=green		ctermbg=none		cterm=underline
-hi! SpellLocal	ctermfg=magenta		ctermbg=none		cterm=underline
-hi! SpellRare	ctermfg=cyan		ctermbg=none		cterm=underline
+hi! SpellBad	ctermfg=none		ctermbg=none		cterm=underline
+hi! link	SpellCap	SpellBad
+hi! link	SpellLocal	SpellBad
+hi! link	SpellRare	SpellBad
 
 hi! Directory	ctermfg=blue		ctermbg=none		cterm=none
 
@@ -87,21 +87,21 @@ hi! Function	ctermfg=darkblue	ctermbg=none		cterm=none
 
 hi! Statement	ctermfg=darkgreen	ctermbg=none		cterm=none
 hi! Label	ctermfg=green		ctermbg=none		cterm=none
-hi! Operator	ctermfg=darkmagenta	ctermbg=none		cterm=none
+hi! Operator	ctermfg=magenta		ctermbg=none		cterm=none
 hi! link	Exception	Label
 
 hi! PreProc	ctermfg=red		ctermbg=none		cterm=none
-hi! Macro	ctermfg=magenta		ctermbg=none		cterm=none
+hi! Macro	ctermfg=darkred		ctermbg=none		cterm=none
 
 hi! Type	ctermfg=darkyellow	ctermbg=none		cterm=none
 hi! Structure	ctermfg=yellow		ctermbg=none		cterm=none
-hi! Typedef	ctermfg=yellow		ctermbg=none		cterm=bold
+hi! link	Typedef		Structure
 hi! link	StorageClass	Structure
 
-hi! Special	ctermfg=darkred		ctermbg=none		cterm=none
+hi! Special	ctermfg=magenta		ctermbg=none		cterm=none
 hi! SpecialChar ctermfg=cyan		ctermbg=none		cterm=bold
-hi! Tag		ctermfg=none		ctermbg=none		cterm=bold,underline
-hi! link	SpecialComment Constant
+hi! Tag		ctermfg=magenta		ctermbg=none		cterm=underline
+hi! SpecialComment	ctermfg=darkmagenta	ctermbg=none	cterm=none
 
 hi! Ignore	ctermfg=darkgray	ctermbg=black		cterm=none
 
