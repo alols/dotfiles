@@ -22,6 +22,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'mhinz/vim-signify'
+NeoBundle 'sgur/unite-git_grep'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-unimpaired'
@@ -39,6 +40,8 @@ NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-lua-ftplugin'
 NeoBundle 'alols/vim-love-efm'
 NeoBundle 'majutsushi/tagbar'
+NeoBundle 'peterhoeg/vim-qml'
+
 NeoBundleLocal ~/.vim/localbundle
 NeoBundleCheck
 
@@ -277,14 +280,16 @@ let g:clang_hl_errors=1
 "unite settings
 let g:unite_split_rule="botright"
 let g:unite_source_history_yank_enable=1
+let g:unite_source_rec_max_cache_files=100000
 
 "Some abbreviations for plugins
 cabbrev a  Ack
 cabbrev u  Unite
 cabbrev m  Make
 
-noremap ml :<C-u>Unite -buffer-name=recent buffer file_mru<CR>
+noremap ml :<C-u>Unite -buffer-name=recent buffer neomru/file<CR>
 noremap mf :<C-u>Unite -buffer-name=find -start-insert file_rec/async<CR>
+noremap mg :<C-u>Unite -buffer-name=gitgrep -start-insert vcs_grep<CR>
 noremap my :<C-u>Unite -buffer-name=yank history/yank<CR>
 
 noremap mp :<C-u>call VimuxPromptCommand()<CR>
@@ -294,6 +299,7 @@ noremap mc :<C-U>call g:ClangUpdateQuickFix()<CR>
 
 noremap mt :<C-U>TagbarToggle<CR>
 noremap mm :<C-U>Make<CR>
+
 
 " Some GPG commands
 " Sign range
@@ -355,7 +361,9 @@ else
 
 endif " has("autocmd")
 
-au BufNewFile,BufRead *.qml			setf qml
+au BufNewFile,BufRead *.qml			setf qml |
+        \ set tw=0 |
+        \ normal zi
 
 
 let s:privdir = expand('~/Private')
@@ -379,3 +387,7 @@ if finddir(s:privdir) != ""
         augroup END
     endif
 endif
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
