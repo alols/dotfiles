@@ -49,8 +49,8 @@ hi! Visual	ctermfg=black		ctermbg=white		cterm=none
 hi! IncSearch	ctermfg=black		ctermbg=darkmagenta	cterm=none
 hi! link	Search		IncSearch
 
-hi! Folded	ctermfg=none	ctermbg=none		cterm=underline
-hi! FoldColumn	ctermfg=white	ctermbg=darkgray	cterm=none
+hi! Folded	ctermfg=lightgray	ctermbg=none		cterm=underline
+hi! FoldColumn	ctermfg=lightgray	ctermbg=darkgray	cterm=none
 
 " Pop-up menu
 hi! Pmenu	ctermfg=white		ctermbg=darkgray	cterm=none
