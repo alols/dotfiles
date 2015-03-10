@@ -21,7 +21,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neomru.vim'
-"NeoBundle 'mhinz/vim-signify'
+NeoBundle 'mhinz/vim-signify'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-unimpaired'
@@ -269,7 +269,7 @@ command! -range=% SoftWrap
 let g:clang_snippets=1
 let g:clang_snippets_engine="ultisnips"
 let g:clang_complete_macros=1
-let g:clang_library_path="/usr/lib/llvm-3.5/lib"
+let g:clang_library_path="/usr/lib/llvm-3.4/lib"
 "these two enables error checking
 let g:clang_complete_copen=1
 let g:clang_hl_errors=1
@@ -293,6 +293,7 @@ noremap mr :<C-u>call VimuxRunLastCommand()<CR>
 noremap mc :<C-U>call g:ClangUpdateQuickFix()<CR>
 
 noremap mt :<C-U>TagbarToggle<CR>
+noremap mm :<C-U>Make<CR>
 
 " Some GPG commands
 " Sign range
