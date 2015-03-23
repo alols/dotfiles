@@ -1,2 +1,4 @@
 # Vim swap-files
 *.swp
+# Rebase/merge orig-files
+*.orig
