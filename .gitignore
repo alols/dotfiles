@@ -1,6 +1,4 @@
-vim/bundle
-vim/localbundle
-mutt/cache
+vim/plugged
 *.pyc
 vim/.netrwhist
 vim/spell/*.add

@@ -2,48 +2,31 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-" Init NeoBundle
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+" Init vim-plug
+call plug#begin('~/.vim/plugged')
 
-call neobundle#rc(expand('~/.vim/bundle'))
+Plug 'mhinz/vim-signify'
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-dispatch'
+Plug 'godlygeek/tabular'
+Plug 'Rip-Rip/clang_complete'
+Plug 'vim-scripts/UltiSnips'
+Plug 'tpope/vim-markdown'
+Plug 'nelstrom/vim-markdown-folding'
+Plug 'benmills/vimux'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-lua-ftplugin'
+Plug 'alols/vim-love-efm'
+Plug 'majutsushi/tagbar'
+Plug 'alepez/vim-gtest'
+Plug 'aklt/plantuml-syntax'
+Plug 'kien/ctrlp.vim'
+Plug 'tjennings/git-grep-vim'
 
-NeoBundle 'Shougo/vimproc.vim', {
-      \   'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'linux' : 'make',
-      \     'unix' : 'gmake',
-      \   }
-      \ }
-
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'mhinz/vim-signify'
-NeoBundle 'sgur/unite-git_grep'
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'tpope/vim-dispatch'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'vim-scripts/UltiSnips'
-NeoBundle 'Rip-Rip/clang_complete'
-NeoBundle 'mikewest/vimroom'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 'nelstrom/vim-markdown-folding'
-NeoBundle 'benmills/vimux'
-NeoBundle 'davidhalter/jedi-vim'
-NeoBundle 'aaronbieber/quicktask'
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'xolox/vim-lua-ftplugin'
-NeoBundle 'alols/vim-love-efm'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'peterhoeg/vim-qml'
-
-NeoBundleLocal ~/.vim/localbundle
-NeoBundleCheck
+" Add plugins to &runtimepath
+call plug#end()
 
 " Enable file type detection
 filetype plugin indent on
