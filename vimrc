@@ -260,20 +260,10 @@ let g:clang_library_path="/usr/lib/llvm-3.4/lib"
 let g:clang_complete_copen=1
 let g:clang_hl_errors=1
 
-"unite settings
-let g:unite_split_rule="botright"
-let g:unite_source_history_yank_enable=1
-let g:unite_source_rec_max_cache_files=100000
+" m is really nice for custom mappings, who uses marks anyway?
 
-"Some abbreviations for plugins
-cabbrev a  Ack
-cabbrev u  Unite
-cabbrev m  Make
-
-noremap ml :<C-u>Unite -buffer-name=recent buffer neomru/file<CR>
-noremap mf :<C-u>Unite -buffer-name=find -start-insert file_rec/async<CR>
-noremap mg :<C-u>Unite -buffer-name=gitgrep -start-insert vcs_grep<CR>
-noremap my :<C-u>Unite -buffer-name=yank history/yank<CR>
+noremap ml :<C-u>CtrlPMRU<CR>
+let g:ctrlp_map = 'mf'
 
 noremap mp :<C-u>call VimuxPromptCommand()<CR>
 noremap mr :<C-u>call VimuxRunLastCommand()<CR>
@@ -282,6 +272,9 @@ noremap mc :<C-U>call g:ClangUpdateQuickFix()<CR>
 
 noremap mt :<C-U>TagbarToggle<CR>
 noremap mm :<C-U>Make<CR>
+
+noremap ma :<C-U>Ack 
+noremap mg :<C-U>GitGrep 
 
 
 " Some GPG commands
