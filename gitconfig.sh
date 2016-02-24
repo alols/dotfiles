@@ -20,3 +20,5 @@ git config --global core.pager "less -FRSX"
 
 # Global .gitignore
 git config --global core.excludesfile '~/.gitignore'
+
+git config --global merge.tool vimdiff
