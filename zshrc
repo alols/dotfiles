@@ -90,3 +90,11 @@ fi
 
 
 bindkey '^R' history-incremental-search-backward
+
+# single instance of vim per window
+export TMUX_WINDOW=`tmux display-message -p '#I'`
+vim () {
+    /usr/bin/vim --servername VIM$TMUX_WINDOW $(if [ ! -z "$@" ]; then echo "--remote-silent";fi;) "$@"
+}
+
+. /home/alol/torch/install/bin/torch-activate
